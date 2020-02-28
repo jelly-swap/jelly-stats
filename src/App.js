@@ -1,23 +1,28 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
+import Navbar from "./components/Navbar";
+import Dashboard from "./components/Dashboard";
+import Liquidity from "./components/Liquidity";
+
+import "./css/App.scss";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <div className="navbar-container">
+          <Navbar />
+        </div>
+        <div className="container">
+          <Switch>
+            <Route exact path="/liquidity" component={Liquidity} />
+            <Route exact path="/" component={Dashboard} />
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
