@@ -6,7 +6,7 @@ export default (state, action) => {
       const { providerInfo } = action.payload;
       return {
         ...state,
-        providerInfo
+        providerInfo: [providerInfo]
       };
     }
 

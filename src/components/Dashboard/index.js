@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./style.scss";
+
 export default () => {
-  return <div>dashboard</div>;
+  return <span>Dashboard</span>;
 };

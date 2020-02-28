@@ -1,11 +1,33 @@
 import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
+import { safeAccess } from "../../utils";
+
+import "./style.scss";
 
 export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
   const { providerInfo } = providerInfoContext;
 
-  console.log("INFO ", providerInfo);
+  const prices = safeAccess(providerInfo[0], ["prices"]);
+  const balances = safeAccess(providerInfo[0], ["balances"]);
+  let totalBalance = 0;
 
-  return <div>hi</div>;
+  if (balances) {
+    let network = "";
+    let balance = 0;
+    let price = 0;
+
+    const balancesUSDT = [];
+
+    Object.entries(balances).forEach(balanceInfo => {
+      network = balanceInfo[0];
+      balance = balanceInfo[1].balanceShort;
+      price = safeAccess(prices, [network, "USDT"]);
+
+      balancesUSDT.push(price * balance);
+      totalBalance = balancesUSDT.reduce((a, b) => a + b, 0);
+    });
+  }
+
+  return <span>Total Balance: {totalBalance}</span>;
 };

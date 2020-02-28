@@ -15,7 +15,7 @@ export default () => {
         <NavLink to="/liquidity">Liquidity</NavLink>
       </li>
       <li>
-        <NavLink to="/liquidity">Providers</NavLink>
+        <NavLink to="/providers">Providers</NavLink>
       </li>
     </ul>
   );
