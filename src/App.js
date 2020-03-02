@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProviderInfoState from "./context/providerInfo";
 import Navbar from "./components/Navbar";
 
-import Dashboard from "./components/Dashboard";
-import Liquidity from "./components/Liquidity";
-import Providers from "./components/Providers";
+import Dashboard from "./components/dashboard";
+import Liquidity from "./components/liquidity";
+import Providers from "./components/providers";
 
 import "./css/App.scss";
 

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
 import { safeAccess } from "../../utils";
-
 import "./style.scss";
 
 export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
   const { providerInfo } = providerInfoContext;
 
+  // TODO: Extract this to a seperate component
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const balances = safeAccess(providerInfo[0], ["balances"]);
   let totalBalance = 0;
@@ -29,5 +29,9 @@ export default () => {
     });
   }
 
-  return <span>Total Balance: {totalBalance}</span>;
+  return (
+    <div className="liquidity">
+      <span>{totalBalance}</span>
+    </div>
+  );
 };
