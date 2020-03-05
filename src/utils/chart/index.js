@@ -9,10 +9,19 @@ export default props => {
       <Pie
         data={chartData}
         options={{
+          responsive: true,
           title: {
             display: "Liquidity value in USD",
             text: "Liquidity value in USD",
-            fontSize: 16
+            fontSize: 24,
+            fontColor: "#fcfcfc"
+          },
+          legend: {
+            position: "left",
+            labels: {
+              padding: 15,
+              fontColor: "#fcfcfc"
+            }
           }
         }}
       />
