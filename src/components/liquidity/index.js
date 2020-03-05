@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
 import { safeAccess } from "../../utils";
+import Chart from "../../utils/chart";
 import "./style.scss";
 
 export default () => {
@@ -32,6 +33,7 @@ export default () => {
   return (
     <div className="liquidity">
       <span>{totalBalance}</span>
+      <Chart />
     </div>
   );
 };
