@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
 import { safeAccess } from "../../utils";
-import getSumOfBalances from "./getSumOfBalances";
 import Chart from "../../utils/chart";
 import "./style.scss";
 
@@ -11,7 +10,7 @@ export default () => {
 
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const balances = safeAccess(providerInfo[0], ["balances"]);
-  const sumOfBalances = getSumOfBalances(balances, prices);
+  // const sumOfBalances = getSumOfBalances(balances, prices);
   let labels = [];
   let shortBalances = [];
 
@@ -26,6 +25,11 @@ export default () => {
       shortBalances.push(balanceShortUSDT.toFixed(3));
     });
   }
+
+  const sumOfBalances = shortBalances.reduce(
+    (a, b) => parseFloat(a) + parseFloat(b),
+    0
+  );
 
   const chartData = {
     labels: labels,
@@ -48,7 +52,7 @@ export default () => {
 
   return (
     <div className="liquidity">
-      <span>{sumOfBalances}</span>
+      <span>Total: $ {sumOfBalances.toFixed(3)}</span>
       <Chart chartData={chartData} />
     </div>
   );

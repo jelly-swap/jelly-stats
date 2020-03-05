@@ -10,12 +10,6 @@ export default props => {
         data={chartData}
         options={{
           responsive: true,
-          title: {
-            display: "Liquidity value in USD",
-            text: "Liquidity value in USD",
-            fontSize: 24,
-            fontColor: "#fcfcfc"
-          },
           legend: {
             position: "left",
             labels: {
