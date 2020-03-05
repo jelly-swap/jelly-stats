@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import ProviderInfoState from "./context/providerInfo";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 
 import Dashboard from "./components/dashboard";
 import Liquidity from "./components/liquidity";
