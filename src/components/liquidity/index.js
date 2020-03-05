@@ -17,9 +17,13 @@ export default () => {
 
   if (balances) {
     labels = Object.keys(balances);
-    Object.values(balances).forEach(b => {
-      let balanceShort = parseFloat(b.balanceShort);
-      shortBalances.push(balanceShort.toFixed(3));
+    Object.entries(balances).forEach(entry => {
+      const network = entry[0];
+      const balanceShort = parseFloat(entry[1].balanceShort);
+      const priceToUSDT = safeAccess(prices, [network, "USDT"]);
+      const balanceShortUSDT = parseFloat(balanceShort * priceToUSDT);
+
+      shortBalances.push(balanceShortUSDT.toFixed(3));
     });
   }
 
@@ -27,7 +31,7 @@ export default () => {
     labels: labels,
     datasets: [
       {
-        label: "Population",
+        label: "Liquidity",
         data: shortBalances,
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)",

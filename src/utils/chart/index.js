@@ -14,10 +14,6 @@ export default props => {
             text: "Liquidity value in USD",
             fontSize: 16
           }
-          // legend: {
-          //   display: true,
-          //   position: "right"
-          // }
         }}
       />
     </div>
