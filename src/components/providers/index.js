@@ -14,13 +14,10 @@ export default () => {
   const { providerInfo } = providerInfoContext;
   const [chosenToken, setChosenToken] = useState("ETH");
 
-  console.log("PROVIDER INFO ", providerInfo);
-
   const balances = safeAccess(providerInfo[0], ["balances"]);
   let options = [];
   let addressesPerToken = [];
   let balancesOfAddressesPerToken = [];
-  let sumBalancesOfAddressesPerToken = 0;
 
   if (balances) {
     const keys = Object.keys(balances);

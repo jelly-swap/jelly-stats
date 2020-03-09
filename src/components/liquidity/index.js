@@ -8,8 +8,11 @@ export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
   const { providerInfo } = providerInfoContext;
 
+  console.log("PROVIDER INFO ", providerInfo);
+
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const balances = safeAccess(providerInfo[0], ["balances"]);
+
   let labels = [];
   let shortBalances = [];
 
