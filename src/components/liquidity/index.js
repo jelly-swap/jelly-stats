@@ -10,7 +10,6 @@ export default () => {
 
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const balances = safeAccess(providerInfo[0], ["balances"]);
-  // const sumOfBalances = getSumOfBalances(balances, prices);
   let labels = [];
   let shortBalances = [];
 
