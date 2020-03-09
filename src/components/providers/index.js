@@ -58,6 +58,7 @@ export default () => {
   return (
     <div className="providers slide-in-bottom">
       <div className="selector-wrapper">
+        <span className="total">Total: $ 324324</span>
         <Select
           options={options}
           styles={selectorStyles()}
@@ -65,12 +66,11 @@ export default () => {
           placeholder={chosenToken}
           value={chosenToken}
         />
-
-        <Chart
-          chartData={chartData}
-          titleText="Liquidity providers by token (in token quantity)"
-        />
       </div>
+      <Chart
+        chartData={chartData}
+        titleText="Liquidity providers by token (in token quantity)"
+      />
     </div>
   );
 };

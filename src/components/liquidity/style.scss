@@ -3,9 +3,17 @@
   .liquidity {
     display: flex;
     justify-content: center;
+    position: relative;
 
     span {
       color: #fcfcfc;
+
+      &.total {
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        left: 30%;
+      }
     }
 
     .chart {

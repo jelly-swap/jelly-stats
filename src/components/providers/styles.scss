@@ -1,18 +1,39 @@
 .container-content {
   height: 80%;
   .providers {
+    position: relative;
     .selector-wrapper {
       display: flex;
       justify-content: center;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      .chart {
-        margin-top: 5rem;
 
-        position: relative;
-        width: 40%;
+      span {
+        color: #fcfcfc;
+      }
+
+      .total {
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        left: 30%;
       }
     }
+
+    .chart {
+      display: flex;
+      margin: 0 auto;
+      margin-top: 5rem;
+
+      position: relative;
+      width: 40%;
+    }
+  }
+}
+
+@media (max-width: 1400px) {
+  .total {
+    top: 70px;
   }
 }
