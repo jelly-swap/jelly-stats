@@ -56,7 +56,7 @@ export default () => {
   };
 
   return (
-    <div className="providers">
+    <div className="providers slide-in-bottom">
       <div className="selector-wrapper">
         <Select
           options={options}

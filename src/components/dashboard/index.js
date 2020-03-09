@@ -17,7 +17,7 @@ export default () => {
   }
 
   return (
-    <div className="dashboard">
+    <div className="dashboard slide-in-bottom">
       <div className="card-container">
         {pricesEntries.map((e, i) => {
           const network = e[0];

@@ -22,6 +22,11 @@
       justify-content: center;
       margin-right: 15px;
       box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+
+      &:hover {
+        animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+      }
+
       span {
         color: #fcfcfc;
 
@@ -34,5 +39,16 @@
         }
       }
     }
+  }
+}
+
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.125);
+    transform: scale(1.125);
   }
 }

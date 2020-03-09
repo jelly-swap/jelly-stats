@@ -50,7 +50,7 @@ export default () => {
   };
 
   return (
-    <div className="liquidity">
+    <div className="liquidity slide-in-bottom">
       <span>Total: $ {sumOfBalances.toFixed(3)}</span>
       <Chart chartData={chartData} titleText="Liquidity value (in USD)" />
     </div>
