@@ -70,7 +70,10 @@ export default () => {
           value={chosenToken}
         />
 
-        <Chart chartData={chartData} />
+        <Chart
+          chartData={chartData}
+          titleText="Liquidity providers by token (in token quantity)"
+        />
       </div>
     </div>
   );

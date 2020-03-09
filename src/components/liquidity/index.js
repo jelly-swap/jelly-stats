@@ -52,7 +52,7 @@ export default () => {
   return (
     <div className="liquidity">
       <span>Total: $ {sumOfBalances.toFixed(3)}</span>
-      <Chart chartData={chartData} />
+      <Chart chartData={chartData} titleText="Liquidity value (in USD)" />
     </div>
   );
 };
