@@ -4,6 +4,8 @@ import { Pie } from "react-chartjs-2";
 export default props => {
   const chartData = props.chartData;
 
+  console.log(chartData);
+
   return (
     <div className="chart">
       <Pie
