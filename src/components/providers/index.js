@@ -1,10 +1,6 @@
 import React, { useContext, useState } from "react";
 import Select from "react-select";
-import {
-  safeAccess,
-  formatDisplayAddr,
-  formatDisplayBalance
-} from "../../utils";
+import { safeAccess, formatDisplayAddr, formatDisplayNum } from "../../utils";
 import Chart from "../../utils/chart";
 
 import ProviderInfoContext from "../../context/providerInfo/context";
@@ -35,7 +31,7 @@ export default () => {
     });
 
     addressesPerToken = formatDisplayAddr([balances[chosenToken].address]);
-    balancesOfAddressesPerToken = formatDisplayBalance([
+    balancesOfAddressesPerToken = formatDisplayNum([
       balances[chosenToken].balanceShort
     ]);
   }

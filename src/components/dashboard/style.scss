@@ -1,3 +1,35 @@
-span {
-  color: white;
+.dashboard {
+  display: flex;
+  justify-content: center;
+  .card-container {
+    padding-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    align-items: center;
+    justify-content: space-between;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid #fcfcfc;
+      width: 200px;
+      height: 70px;
+      align-items: center;
+      margin-bottom: 15px;
+      span {
+        color: #fcfcfc;
+
+        &.price {
+          font-size: 32px;
+          font-weight: bold;
+        }
+        &.network {
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }

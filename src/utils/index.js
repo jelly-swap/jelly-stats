@@ -15,6 +15,6 @@ export const formatDisplayAddr = addr => {
   return addr.substring(0, 6) + "..." + addr.substring(addr.length - 6);
 };
 
-export const formatDisplayBalance = balance => {
+export const formatDisplayNum = balance => {
   return parseFloat(balance).toFixed(3);
 };
