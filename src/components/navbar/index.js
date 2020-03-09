@@ -7,15 +7,19 @@ export default () => {
   return (
     <ul>
       <li>
-        <NavLink to="/" exact={true}>
+        <NavLink activeClassName="selected" to="/" exact={true}>
           Dashboard
         </NavLink>
       </li>
       <li>
-        <NavLink to="/liquidity">Liquidity</NavLink>
+        <NavLink activeClassName="selected" to="/liquidity">
+          Liquidity
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/providers">Providers</NavLink>
+        <NavLink activeClassName="selected" to="/providers">
+          Providers
+        </NavLink>
       </li>
     </ul>
   );
