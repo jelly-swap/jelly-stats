@@ -29,11 +29,10 @@
       position: relative;
       width: 40%;
     }
-  }
-}
-
-@media (max-width: 1400px) {
-  .total {
-    top: 70px;
+    @media (max-width: 1400px) {
+      .total {
+        top: 70px;
+      }
+    }
   }
 }

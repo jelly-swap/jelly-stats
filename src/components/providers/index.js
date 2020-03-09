@@ -20,6 +20,7 @@ export default () => {
   let options = [];
   let addressesPerToken = [];
   let balancesOfAddressesPerToken = [];
+  let sumBalancesOfAddressesPerToken = 0;
 
   if (balances) {
     const keys = Object.keys(balances);
@@ -55,10 +56,14 @@ export default () => {
     ]
   };
 
+  console.log(balances);
+
   return (
     <div className="providers slide-in-bottom">
       <div className="selector-wrapper">
-        <span className="total">Total: $ 324324</span>
+        <span className="total">
+          Total: {balancesOfAddressesPerToken} {chosenToken}
+        </span>
         <Select
           options={options}
           styles={selectorStyles()}
