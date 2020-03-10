@@ -13,6 +13,16 @@ export default () => {
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const balances = safeAccess(providerInfo[0], ["balances"]);
 
+  let temp = 0;
+  providerInfo.forEach(providerInfo => {
+    const balances = safeAccess(providerInfo, ["balances"]);
+    const chosenTokenRates = safeAccess(balances, ["BTC"]);
+    console.log("CTR ", chosenTokenRates.balanceShort);
+    temp += parseFloat(chosenTokenRates.balanceShort);
+  });
+
+  console.log(temp);
+
   let labels = [];
   let shortBalances = [];
 

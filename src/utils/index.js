@@ -18,3 +18,9 @@ export const formatDisplayAddr = addr => {
 export const formatDisplayNum = balance => {
   return parseFloat(balance).toFixed(3);
 };
+
+export const openLink = url => event => {
+  event.preventDefault();
+  const win = window.open(url, "_blank");
+  win.focus();
+};
