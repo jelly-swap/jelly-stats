@@ -8,7 +8,10 @@ export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
   const { providerInfo } = providerInfoContext;
 
+  // Prices from Jelly provider
   const prices = safeAccess(providerInfo[0], ["prices"]);
+
+  // Balances from Jelly provider, for reference on available tokens
   const balances = safeAccess(providerInfo[0], ["balances"]);
 
   let labels = [];
@@ -19,10 +22,15 @@ export default () => {
 
     Object.entries(balances).forEach(entry => {
       const network = entry[0];
+
+      // Aggregating balances from all other providers
       const balanceShortAggregated = aggregateBalances(providerInfo, network);
+
+      // Converting balances from all providers to USD
       const priceToUSDT = safeAccess(prices, [network, "USDT"]);
       const balanceShortUSDT = parseFloat(balanceShortAggregated * priceToUSDT);
 
+      // Loading balances from all providers into array
       shortBalances.push(balanceShortUSDT.toFixed(3));
     });
   }

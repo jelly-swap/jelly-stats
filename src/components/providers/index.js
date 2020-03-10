@@ -1,6 +1,10 @@
 import React, { useContext, useState } from "react";
 import Select from "react-select";
-import { safeAccess, formatDisplayAddr, formatDisplayNum } from "../../utils";
+import {
+  safeAccess,
+  aggregateProviders,
+  getAddressesPerToken
+} from "../../utils";
 import Chart from "../../utils/chart";
 
 import ProviderInfoContext from "../../context/providerInfo/context";
@@ -14,9 +18,11 @@ export default () => {
   const { providerInfo } = providerInfoContext;
   const [chosenToken, setChosenToken] = useState("ETH");
 
+  // Balances from Jelly provider for reference on available tokens
   const balances = safeAccess(providerInfo[0], ["balances"]);
+
   let options = [];
-  let addressesPerToken = [];
+  let addressesWithBalance = [];
   let balancesOfAddressesPerToken = [];
 
   if (balances) {
@@ -28,18 +34,20 @@ export default () => {
       });
     });
 
-    addressesPerToken = formatDisplayAddr([balances[chosenToken].address]);
-    balancesOfAddressesPerToken = formatDisplayNum([
-      balances[chosenToken].balanceShort
-    ]);
+    const aggregatedProviders = aggregateProviders(providerInfo);
+
+    addressesWithBalance = getAddressesPerToken(
+      aggregatedProviders,
+      chosenToken
+    );
   }
 
   const chartData = {
-    labels: [addressesPerToken],
+    labels: Object.keys(addressesWithBalance),
     datasets: [
       {
         label: "Liquidity",
-        data: [balancesOfAddressesPerToken],
+        data: Object.values(addressesWithBalance),
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)",
           "rgba(54, 162, 235, 0.6)",
