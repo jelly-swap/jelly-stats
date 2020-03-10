@@ -1,5 +1,3 @@
-import providers from "../components/providers";
-
 export const safeAccess = (object, path) => {
   return object
     ? path.reduce(
