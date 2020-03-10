@@ -53,8 +53,6 @@ export default () => {
     ]
   };
 
-  console.log(balances);
-
   return (
     <div className="providers slide-in-bottom">
       <div className="selector-wrapper">
