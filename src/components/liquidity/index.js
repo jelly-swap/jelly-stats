@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
-import { safeAccess } from "../../utils";
+import { safeAccess, aggregateBalances } from "../../utils";
 import Chart from "../../utils/chart";
 import "./style.scss";
 
@@ -8,31 +8,20 @@ export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
   const { providerInfo } = providerInfoContext;
 
-  console.log("PROVIDER INFO ", providerInfo);
-
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const balances = safeAccess(providerInfo[0], ["balances"]);
-
-  let temp = 0;
-  providerInfo.forEach(providerInfo => {
-    const balances = safeAccess(providerInfo, ["balances"]);
-    const chosenTokenRates = safeAccess(balances, ["BTC"]);
-    console.log("CTR ", chosenTokenRates.balanceShort);
-    temp += parseFloat(chosenTokenRates.balanceShort);
-  });
-
-  console.log(temp);
 
   let labels = [];
   let shortBalances = [];
 
   if (balances) {
     labels = Object.keys(balances);
+
     Object.entries(balances).forEach(entry => {
       const network = entry[0];
-      const balanceShort = parseFloat(entry[1].balanceShort);
+      const balanceShortAggregated = aggregateBalances(providerInfo, network);
       const priceToUSDT = safeAccess(prices, [network, "USDT"]);
-      const balanceShortUSDT = parseFloat(balanceShort * priceToUSDT);
+      const balanceShortUSDT = parseFloat(balanceShortAggregated * priceToUSDT);
 
       shortBalances.push(balanceShortUSDT.toFixed(3));
     });

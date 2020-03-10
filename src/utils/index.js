@@ -24,3 +24,14 @@ export const openLink = url => event => {
   const win = window.open(url, "_blank");
   win.focus();
 };
+
+export const aggregateBalances = (providerInfo, token) => {
+  let res = 0;
+  providerInfo.forEach(providerInfo => {
+    const balances = safeAccess(providerInfo, ["balances"]);
+    const chosenTokenRates = safeAccess(balances, [token]);
+
+    res += parseFloat(chosenTokenRates.balanceShort);
+  });
+  return res;
+};
