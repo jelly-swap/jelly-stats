@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
 import { safeAccess } from "../../utils";
 
+import Error from "../error";
 import Card from "./Card";
 
 import "./style.scss";
@@ -16,7 +17,7 @@ export default () => {
     pricesEntries = Object.entries(prices);
   }
 
-  return (
+  return providerInfo && providerInfo[0] ? (
     <div className="dashboard slide-in-bottom">
       <div className="card-container">
         {pricesEntries.map((e, i) => {
@@ -27,5 +28,7 @@ export default () => {
         })}
       </div>
     </div>
+  ) : (
+    <Error msg={"Cannot fetch data."} />
   );
 };

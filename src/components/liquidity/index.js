@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
 import { safeAccess, aggregateBalances } from "../../utils";
 import Chart from "../../utils/chart";
+import Error from "../error";
 import "./style.scss";
 
 export default () => {
@@ -59,10 +60,12 @@ export default () => {
     ]
   };
 
-  return (
+  return providerInfo && providerInfo[0] ? (
     <div className="liquidity slide-in-bottom">
       <span className="total">Total: {sumOfBalances.toFixed(3)} $</span>
       <Chart chartData={chartData} titleText="Liquidity value (in USD)" />
     </div>
+  ) : (
+    <Error msg={"Cannot fetch data."} />
   );
 };

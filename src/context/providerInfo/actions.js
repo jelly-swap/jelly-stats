@@ -4,7 +4,7 @@ import { FETCH_PROVIDER_INFO } from "./types";
 export const fetchProviderInfo = async () => {
   try {
     const res = await axios.get(
-      "https://spacejelly.network/listener/provider/info"
+      "https://spacejelly.network/listener/prfovider/info"
     );
     return {
       type: FETCH_PROVIDER_INFO,

@@ -1,0 +1,17 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  span {
+    color: #fcfcfc;
+    margin-top: 1rem;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  img {
+    width: 150px;
+  }
+}

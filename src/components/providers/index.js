@@ -6,6 +6,7 @@ import {
   getAddressesPerToken
 } from "../../utils";
 import Chart from "../../utils/chart";
+import Error from "../../components/error";
 
 import ProviderInfoContext from "../../context/providerInfo/context";
 
@@ -66,7 +67,7 @@ export default () => {
     }, 0);
   };
 
-  return (
+  return providerInfo && providerInfo[0] ? (
     <div className="providers slide-in-bottom">
       <div className="selector-wrapper">
         <span className="total">
@@ -85,5 +86,7 @@ export default () => {
         titleText="Liquidity providers by token (in token quantity)"
       />
     </div>
+  ) : (
+    <Error msg={"Cannot fetch data."} />
   );
 };
