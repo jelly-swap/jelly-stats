@@ -60,8 +60,6 @@ export default () => {
     ]
   };
 
-  console.log("test ", addressesWithBalance);
-
   const sumOfBalancesPerToken = () => {
     return Object.values(addressesWithBalance).reduce((a, b) => {
       return parseFloat(a) + parseFloat(b);
