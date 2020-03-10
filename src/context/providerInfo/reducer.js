@@ -6,7 +6,10 @@ export default (state, action) => {
       const { providerInfo } = action.payload;
       return {
         ...state,
-        providerInfo: providerInfo
+        // Once there's more than one object returned from the provider service, simply remove brackets e.g.:
+        // providerInfo: providerInfo
+        // Everything should work just fine :)
+        providerInfo: [providerInfo]
       };
     }
 
