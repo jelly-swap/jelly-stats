@@ -20,9 +20,10 @@ const App = () => {
           </div>
           <div className="container-content">
             <Switch>
-              <Route exact path="/liquidity" component={Liquidity} />
-              <Route exact path="/providers" component={Providers} />
-              <Route exact path="/" component={Dashboard} />
+              <Route path="/" exact component={Dashboard} />
+              <Route path="/liquidity" component={Liquidity} />
+              <Route path="/providers" component={Providers} />
+              <Route path="*" component={Dashboard} />
             </Switch>
           </div>
         </div>
