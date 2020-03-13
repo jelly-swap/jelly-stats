@@ -7,6 +7,7 @@ import Navbar from "./components/navbar";
 import Dashboard from "./components/dashboard";
 import Liquidity from "./components/liquidity";
 import Providers from "./components/providers";
+import Volume from "./components/volume";
 
 import "./css/App.scss";
 
@@ -23,7 +24,7 @@ const App = () => {
               <Route path="/" exact component={Dashboard} />
               <Route path="/liquidity" component={Liquidity} />
               <Route path="/providers" component={Providers} />
-              <Route path="*" component={Dashboard} />
+              <Route path="/volume" component={Volume} />
             </Switch>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import ProviderInfoContext from "../../context/providerInfo/context";
 import { safeAccess, aggregateBalances } from "../../utils";
-import Chart from "../../utils/chart";
+import Chart from "../../utils/pieChart";
 import Error from "../error";
 import "./style.scss";
 

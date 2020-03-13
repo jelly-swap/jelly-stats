@@ -32,6 +32,11 @@ export default () => {
             Providers
           </NavLink>
         </li>
+        <li>
+          <NavLink activeClassName="selected" to="/volume">
+            Volume
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
