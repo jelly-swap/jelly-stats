@@ -1,3 +1,11 @@
+import Web3 from "web3";
+
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(
+    "https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144"
+  )
+);
+
 export const safeAccess = (object, path) => {
   return object
     ? path.reduce(
@@ -67,4 +75,11 @@ export const getAddressesPerToken = (aggregateProviders, token) => {
     );
   });
   return addressesWithBalance;
+};
+
+export const getEthTransactionDate = async hash => {
+  const { blockNumber } = await web3.eth.getTransaction(hash);
+  const { timestamp } = await web3.eth.getBlock(blockNumber);
+
+  return new Date(timestamp * 1000);
 };

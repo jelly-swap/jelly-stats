@@ -1,35 +1,20 @@
 import React from "react";
-import * as jellyEth from "@jelly-swap/ethereum";
 import Chart from "../../utils/lineChart";
+import ethData from "./ethereum";
 
 import "./style.scss";
 
-const provider = new jellyEth.Providers.WalletProvider(
-  "e76a85c5d0b785b33ca285b76423833375ca4924381a4e4e7f3e1c93156d2473",
-  "https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144"
-);
-
-const config = jellyEth.Config();
-config.contractAddress = "0xf567ea9138fe836555b9002abeea42a9dbf16ac5";
-
-const ethContract = new jellyEth.Contract(provider, config);
-
-async function test() {
-  // Subscribe for contract events and pass handle function
-  await ethContract.subscribe(e => {
-    console.log(e);
-  });
-
-  const withdraws = await ethContract.getPastEvents("withdraw", w => w);
-  console.log(withdraws);
-}
+ethData();
 
 const chartData = {
-  labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
   datasets: [
     {
-      label: "Liquidity",
-      data: [1232, 213, 3323, 1321, 2000],
+      label: "Volume",
+      data: [
+        { x: new Date(2020, 2, 5), y: 12 },
+        { x: new Date(2020, 2, 10), y: 28 },
+        { x: new Date(2020, 2, 12), y: 16 }
+      ],
       backgroundColor: [
         "rgba(255, 99, 132, 0.6)",
         "rgba(54, 162, 235, 0.6)",
@@ -44,7 +29,6 @@ const chartData = {
 };
 
 export default () => {
-  test();
   return (
     <div className="volume">
       <Chart

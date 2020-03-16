@@ -18,6 +18,17 @@ export default props => {
             fontColor: "#fcfcfc",
             fontSize: "18",
             padding: "15"
+          },
+
+          scales: {
+            xAxes: [
+              {
+                type: "time",
+                time: {
+                  unit: "day"
+                }
+              }
+            ]
           }
         }}
       />
