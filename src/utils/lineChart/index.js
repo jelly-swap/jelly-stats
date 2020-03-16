@@ -25,7 +25,7 @@ export default props => {
               {
                 type: "time",
                 time: {
-                  unit: "day"
+                  unit: "month"
                 }
               }
             ]

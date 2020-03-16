@@ -1,19 +1,16 @@
 import React from "react";
 import Chart from "../../utils/lineChart";
-import ethData from "./ethereum";
+import EthData from "./ethereum";
 
 import "./style.scss";
-
-ethData();
 
 const chartData = {
   datasets: [
     {
       label: "Volume",
       data: [
-        { x: new Date(2020, 2, 5), y: 12 },
-        { x: new Date(2020, 2, 10), y: 28 },
-        { x: new Date(2020, 2, 12), y: 16 }
+        { x: new Date(1584262772 * 1000), y: 12 },
+        { x: new Date(1584262714 * 1000), y: 28 }
       ],
       backgroundColor: [
         "rgba(255, 99, 132, 0.6)",
@@ -31,6 +28,7 @@ const chartData = {
 export default () => {
   return (
     <div className="volume">
+      <EthData />
       <Chart
         chartData={chartData}
         titleText="Total Volume (completed swaps) - For All Time"
