@@ -4,6 +4,7 @@ import { Pie } from "react-chartjs-2";
 export default props => {
   const chartData = props.chartData;
   const titleText = props.titleText;
+  const tooltips = props.tooltips;
 
   return (
     <div className="chart">
@@ -24,6 +25,9 @@ export default props => {
             fontColor: "#fcfcfc",
             fontSize: "18",
             padding: "15"
+          },
+          tooltips: {
+            ...tooltips
           }
         }}
       />

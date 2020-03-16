@@ -42,6 +42,19 @@ export default () => {
     );
   }
 
+  const tooltips = {
+    enabled: true,
+    callbacks: {
+      label: (tooltipItem, data) => {
+        const { index } = tooltipItem;
+        const address = data.labels[index];
+
+        const amount = data.datasets[0].data[index];
+        return ` ${address} : ${amount} ${chosenToken}`;
+      }
+    }
+  };
+
   const chartData = {
     labels: Object.keys(addressesWithBalance),
     datasets: [
@@ -84,6 +97,7 @@ export default () => {
       <Chart
         chartData={chartData}
         titleText="Liquidity providers by token (in token quantity)"
+        tooltips={tooltips}
       />
     </div>
   ) : (

@@ -32,7 +32,7 @@ export default () => {
       const balanceShortUSDT = parseFloat(balanceShortAggregated * priceToUSDT);
 
       // Loading balances from all providers into array
-      shortBalances.push(balanceShortUSDT.toFixed(3));
+      shortBalances.push(balanceShortUSDT.toFixed(0));
     });
   }
 
@@ -40,6 +40,28 @@ export default () => {
     (a, b) => parseFloat(a) + parseFloat(b),
     0
   );
+
+  const calcTokenAmount = (network, priceInUSDT) => {
+    const pricePerOne = safeAccess(prices, ["USDT", network]);
+    const amount = priceInUSDT * pricePerOne;
+    return amount.toFixed(3);
+  };
+
+  const tooltips = {
+    enabled: true,
+    callbacks: {
+      label: (tooltipItem, data) => {
+        const { index } = tooltipItem;
+        const network = data.labels[index];
+        const amountInUsd = data.datasets[0].data[index];
+
+        return ` ${calcTokenAmount(
+          network,
+          amountInUsd
+        )} ${network} (${amountInUsd} $)`;
+      }
+    }
+  };
 
   const chartData = {
     labels: labels,
@@ -62,8 +84,12 @@ export default () => {
 
   return providerInfo && providerInfo[0] ? (
     <div className="liquidity slide-in-bottom">
-      <span className="total">Total: {sumOfBalances.toFixed(3)} $</span>
-      <Chart chartData={chartData} titleText="Liquidity value (in USD)" />
+      <span className="total">Total: {sumOfBalances.toFixed(0)} $</span>
+      <Chart
+        chartData={chartData}
+        titleText="Liquidity value (in USD)"
+        tooltips={tooltips}
+      />
     </div>
   ) : (
     <Error msg={"Cannot fetch data."} />
