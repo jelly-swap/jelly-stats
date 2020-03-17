@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
 
@@ -55,10 +58,20 @@ export default () => {
 
   return (
     <div className="volume">
-      <Chart
-        chartData={chartData}
-        titleText="Total Volume (completed swaps) - For All Time"
-      />
+      {volume.length > 0 ? (
+        <Chart
+          chartData={chartData}
+          titleText="Total Volume (completed swaps) - For All Time"
+        />
+      ) : (
+        <Loader
+          className={"loader"}
+          type="ThreeDots"
+          color="#00BFFF"
+          height={100}
+          width={100}
+        />
+      )}
     </div>
   );
 };
