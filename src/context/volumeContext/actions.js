@@ -1,6 +1,6 @@
 import * as jellyEth from "@jelly-swap/ethereum";
 import { LOAD_WITHDRAWS, LOAD_VOLUME } from "./types";
-import { getEthTransactionDate, clearTimeFromDate } from "../../utils";
+import { getEthTransactionDate } from "../../utils";
 
 const provider = new jellyEth.Providers.WalletProvider(
   "e76a85c5d0b785b33ca285b76423833375ca4924381a4e4e7f3e1c93156d2473",
@@ -35,8 +35,6 @@ export const loadWithdraws = async () => {
 };
 
 export const loadVolume = async withdraws => {
-  let res = [];
-
   const transformWithdraws = item => {
     return Promise.resolve(getEthTransactionDate(item.transactionHash));
   };
@@ -53,28 +51,6 @@ export const loadVolume = async withdraws => {
       })
     );
   };
-
-  // getDates().then(dates => {
-  //   const rawDates = {};
-  //   const finalChartData = [];
-
-  //   dates.forEach(date => {
-  //     if (!rawDates[clearTimeFromDate(date)]) {
-  //       rawDates[clearTimeFromDate(date)] = 1;
-  //     } else {
-  //       rawDates[clearTimeFromDate(date)]++;
-  //     }
-  //   });
-
-  //   Object.entries(rawDates).forEach(entry => {
-  //     const date = entry[0];
-  //     const count = entry[1];
-
-  //     finalChartData.push({ x: date, y: count });
-  //   });
-
-  //   res = finalChartData;
-  // });
 
   try {
     return {

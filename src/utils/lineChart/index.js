@@ -32,6 +32,16 @@ export default props => {
                 type: "time",
                 time: {
                   unit: "day"
+                },
+                ticks: {
+                  fontColor: "#fcfcfc"
+                }
+              }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  fontColor: "#fcfcfc"
                 }
               }
             ]
