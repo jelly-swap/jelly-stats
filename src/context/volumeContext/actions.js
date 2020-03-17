@@ -23,12 +23,12 @@ export const loadData = async () => {
   try {
     return {
       type: LOAD_DATA,
-      payload: { dates: withdraws }
+      payload: { withdraws: withdraws }
     };
   } catch (error) {
     return {
       type: LOAD_DATA,
-      payload: { dates: null }
+      payload: { withdraws: null }
     };
   }
 };

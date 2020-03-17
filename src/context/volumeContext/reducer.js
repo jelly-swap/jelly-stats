@@ -3,11 +3,11 @@ import { LOAD_DATA } from "./types";
 export default (state, action) => {
   switch (action.type) {
     case LOAD_DATA: {
-      const { dates } = action.payload;
+      const { withdraws } = action.payload;
       return {
         ...state,
 
-        dates: dates
+        withdraws: withdraws
       };
     }
 

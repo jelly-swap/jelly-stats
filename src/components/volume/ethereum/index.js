@@ -1,5 +1,4 @@
 import * as jellyEth from "@jelly-swap/ethereum";
-import { getEthTransactionDate } from "../../../utils";
 
 const provider = new jellyEth.Providers.WalletProvider(
   "e76a85c5d0b785b33ca285b76423833375ca4924381a4e4e7f3e1c93156d2473",

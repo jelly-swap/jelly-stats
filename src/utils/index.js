@@ -78,14 +78,18 @@ export const getAddressesPerToken = (aggregateProviders, token) => {
   return addressesWithBalance;
 };
 
-export const getDayOnly = date => {
-  return (
-    date.getFullYear().toString() +
-    ":" +
-    date.getMonth().toString() +
-    ":" +
-    date.getDate().toString()
-  );
+export const clearTimeFromDate = date => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  const newDate = new Date();
+  newDate.setTime(0);
+  newDate.setFullYear(year);
+  newDate.setMonth(month);
+  newDate.setDate(day);
+
+  return newDate;
 };
 
 export const getEthTransactionDate = async hash => {

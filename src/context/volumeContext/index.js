@@ -6,7 +6,7 @@ import VolumeContext from "./context";
 
 const VolumeState = props => {
   const initialState = {
-    dates: { placeholder: 4 }
+    withdraws: []
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -23,7 +23,7 @@ const VolumeState = props => {
   return (
     <VolumeContext.Provider
       value={{
-        dates: state.dates,
+        withdraws: state.withdraws,
 
         // actions
         onLoadData
