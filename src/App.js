@@ -16,23 +16,24 @@ import "./css/App.scss";
 const App = () => {
   return (
     <ProviderInfoState>
-      <Router>
-        <div className="App">
-          <div className="navbar-container">
-            <Navbar />
-          </div>
-          <div className="container-content">
-            <Switch>
-              <Route path="/" exact component={Dashboard} />
-              <Route path="/liquidity" component={Liquidity} />
-              <Route path="/providers" component={Providers} />
-              <VolumeState>
+      <VolumeState>
+        <Router>
+          <div className="App">
+            <div className="navbar-container">
+              <Navbar />
+            </div>
+            <div className="container-content">
+              <Switch>
+                <Route path="/" exact component={Dashboard} />
+                <Route path="/liquidity" component={Liquidity} />
+                <Route path="/providers" component={Providers} />
+
                 <Route path="/volume" component={Volume} />
-              </VolumeState>
-            </Switch>
+              </Switch>
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </VolumeState>
     </ProviderInfoState>
   );
 };

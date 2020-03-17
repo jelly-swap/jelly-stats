@@ -2,40 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
 
-import { getEthTransactionDate, clearTimeFromDate } from "../../utils";
+import { clearTimeFromDate } from "../../utils";
 
 import "./style.scss";
 
 export default () => {
   const volumeContext = useContext(VolumeContext);
-  const { withdraws } = volumeContext;
-
-  const [datesWithOccurencies, setDatesWithOccurencies] = useState([]);
+  const { volume } = volumeContext;
+  const [chartDates, setChartDates] = useState([]);
 
   useEffect(() => {
-    const transformWithdraws = item => {
-      return Promise.resolve(getEthTransactionDate(item.transactionHash));
-    };
-
-    const funnel = async item => {
-      return transformWithdraws(item);
-    };
-
-    const getDates = async () => {
-      if (withdraws)
-        return Promise.all(
-          withdraws.map(item => {
-            const res = funnel(item);
-            return res;
-          })
-        );
-    };
-
-    getDates().then(dates => {
+    Object.values(volume).forEach(e => {
       const rawDates = {};
       const finalChartData = [];
 
-      dates.forEach(date => {
+      Object.values(volume).forEach(date => {
         if (!rawDates[clearTimeFromDate(date)]) {
           rawDates[clearTimeFromDate(date)] = 1;
         } else {
@@ -50,17 +31,15 @@ export default () => {
         finalChartData.push({ x: date, y: count });
       });
 
-      setDatesWithOccurencies(finalChartData);
+      setChartDates(finalChartData);
     });
-  }, [withdraws]);
-
-  console.log(datesWithOccurencies);
+  }, [volume]);
 
   const chartData = {
     datasets: [
       {
         label: "Volume",
-        data: datesWithOccurencies,
+        data: chartDates,
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)",
           "rgba(54, 162, 235, 0.6)",

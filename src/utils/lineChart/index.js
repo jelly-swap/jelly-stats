@@ -20,6 +20,12 @@ export default props => {
             padding: "15"
           },
 
+          legend: {
+            labels: {
+              fontColor: "fcfcfc"
+            }
+          },
+
           scales: {
             xAxes: [
               {

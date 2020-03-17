@@ -1,20 +1,26 @@
 import React, { useReducer, useEffect } from "react";
 import reducer from "./reducer";
-import { loadData } from "./actions";
+import { loadWithdraws, loadVolume } from "./actions";
 // import { useInterval } from "../../utils";
 import VolumeContext from "./context";
 
 const VolumeState = props => {
   const initialState = {
-    withdraws: []
+    withdraws: [],
+    volume: {}
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const onLoadData = async () => dispatch(await loadData());
+  const onLoadWthdraws = async () => dispatch(await loadWithdraws());
+  const onLoadVolume = async withdraws => dispatch(await loadVolume(withdraws));
 
   useEffect(() => {
-    onLoadData();
+    onLoadWthdraws();
   }, []);
+
+  useEffect(() => {
+    onLoadVolume(state.withdraws);
+  }, [state.withdraws]);
 
   // useInterval(async () => {
   //   dispatch(await loadData());
@@ -24,9 +30,12 @@ const VolumeState = props => {
     <VolumeContext.Provider
       value={{
         withdraws: state.withdraws,
+        volume: state.volume,
 
         // actions
-        onLoadData
+        onLoadVolume,
+        onLoadWthdraws,
+        dispatch
       }}
     >
       {props.children}
