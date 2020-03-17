@@ -21,9 +21,7 @@ export default props => {
           },
 
           legend: {
-            labels: {
-              fontColor: "fcfcfc"
-            }
+            display: false
           },
 
           scales: {
