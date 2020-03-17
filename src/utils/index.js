@@ -89,17 +89,10 @@ export const getDayOnly = date => {
 };
 
 export const getEthTransactionDate = async hash => {
-  // const { blockNumber } = await web3.eth.getTransaction(hash);
-  // const { timestamp } = await web3.eth.getBlock(blockNumber);
+  const { blockNumber } = await web3.eth.getTransaction(hash);
+  const { timestamp } = await web3.eth.getBlock(blockNumber);
 
-  // return new Date(timestamp * 1000);
-
-  web3.eth.getTransaction(hash).then(hash => {
-    web3.eth.getBlock(hash.blockNumber).then(block => {
-      const date = new Date(block.timestamp * 1000);
-      return date;
-    });
-  });
+  return new Date(timestamp * 1000);
 };
 
 export const useInterval = (callback, delay, params) => {

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
-import getEthData from "./ethereum";
+
 import { getEthTransactionDate } from "../../utils";
 
 import "./style.scss";
@@ -27,25 +28,27 @@ const chartData = {
 };
 
 export default () => {
-  const [args, setArgs] = useState([]);
+  const volumeContext = useContext(VolumeContext);
+  const { dates } = volumeContext;
 
   useEffect(() => {
-    const objArr = {};
+    const functionWithPromise = item => {
+      //a function that returns a promise
+      return Promise.resolve(getEthTransactionDate(item.transactionHash));
+    };
 
-    getEthData().then(data => {
-      const values = Object.values(data);
+    const anAsyncFunction = async item => {
+      return functionWithPromise(item);
+    };
 
-      values.forEach(arg => {
-        const hash = arg.transactionHash;
-        const date = getEthTransactionDate(hash);
-        objArr[hash] = 1;
-      });
+    const getData = async () => {
+      return Promise.all(dates.map(item => anAsyncFunction(item)));
+    };
 
-      setArgs(objArr);
+    getData().then(data => {
+      console.log("DATA ", data);
     });
-  }, []);
-
-  console.log("FINAL ", args);
+  }, [dates]);
 
   return (
     <div className="volume">

@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import ProviderInfoState from "./context/providerInfo";
+import VolumeState from "./context/volumeContext";
+
 import Navbar from "./components/navbar";
 
 import Dashboard from "./components/dashboard";
@@ -24,7 +26,9 @@ const App = () => {
               <Route path="/" exact component={Dashboard} />
               <Route path="/liquidity" component={Liquidity} />
               <Route path="/providers" component={Providers} />
-              <Route path="/volume" component={Volume} />
+              <VolumeState>
+                <Route path="/volume" component={Volume} />
+              </VolumeState>
             </Switch>
           </div>
         </div>
