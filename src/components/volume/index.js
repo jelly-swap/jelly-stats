@@ -15,7 +15,7 @@ export default () => {
   const [chartDates, setChartDates] = useState([]);
 
   useEffect(() => {
-    Object.values(volume).forEach(e => {
+    Object.values(volume).forEach(() => {
       const rawDates = {};
       const finalChartData = [];
 
