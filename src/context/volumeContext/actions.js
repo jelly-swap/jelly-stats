@@ -35,6 +35,12 @@ export const loadWithdraws = async () => {
 };
 
 export const loadVolume = async withdraws => {
+  console.log("WITHDRAWS ", withdraws);
+
+  const amounts = withdraws.map(w => {
+    return w.inputAmount;
+  });
+
   const transformWithdraws = item => {
     return Promise.resolve(getEthTransactionDate(item.transactionHash));
   };
@@ -44,12 +50,16 @@ export const loadVolume = async withdraws => {
   };
 
   const getDates = async () => {
-    return Promise.all(
+    const dates = await Promise.all(
       withdraws.map(item => {
         const res = funnel(item);
         return res;
       })
     );
+
+    return dates.map((d, i) => {
+      return { x: d, y: amounts[i] / 1000000000000000000 };
+    });
   };
 
   try {
