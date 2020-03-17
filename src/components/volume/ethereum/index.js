@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import * as jellyEth from "@jelly-swap/ethereum";
 import { getEthTransactionDate } from "../../../utils";
 
@@ -7,30 +6,17 @@ const provider = new jellyEth.Providers.WalletProvider(
   "https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144"
 );
 
-export default () => {
-  const [dates, setDates] = useState();
-
+export default async () => {
   const config = jellyEth.Config();
   config.contractAddress = "0xf567ea9138fe836555b9002abeea42a9dbf16ac5";
 
   const ethContract = new jellyEth.Contract(provider, config);
 
-  const fetchWithdrawData = async () => {
-    const dates = [];
+  await ethContract.subscribe();
 
-    await ethContract.subscribe();
+  const swaps = await ethContract.getPastEvents("new", w => w);
 
-    const withdraws = await ethContract.getPastEvents("withdraw", w => w);
-
-    withdraws.forEach(async withdrawTx => {
-      const date = await getEthTransactionDate(withdrawTx.transactionHash);
-      dates.push(date);
-    });
-
-    setDates(dates);
-  };
-
-  fetchWithdrawData(dates);
-
-  return <div>hi</div>;
+  return swaps.filter(s => {
+    return s.status === 3;
+  });
 };

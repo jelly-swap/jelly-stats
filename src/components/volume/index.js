@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "../../utils/lineChart";
-import EthData from "./ethereum";
+import getEthData from "./ethereum";
+import { getEthTransactionDate } from "../../utils";
 
 import "./style.scss";
 
@@ -26,9 +27,28 @@ const chartData = {
 };
 
 export default () => {
+  const [args, setArgs] = useState([]);
+
+  useEffect(() => {
+    const objArr = {};
+
+    getEthData().then(data => {
+      const values = Object.values(data);
+
+      values.forEach(arg => {
+        const hash = arg.transactionHash;
+        const date = getEthTransactionDate(hash);
+        objArr[hash] = 1;
+      });
+
+      setArgs(objArr);
+    });
+  }, []);
+
+  console.log("FINAL ", args);
+
   return (
     <div className="volume">
-      <EthData />
       <Chart
         chartData={chartData}
         titleText="Total Volume (completed swaps) - For All Time"

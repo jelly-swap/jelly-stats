@@ -77,9 +77,26 @@ export const getAddressesPerToken = (aggregateProviders, token) => {
   return addressesWithBalance;
 };
 
-export const getEthTransactionDate = async hash => {
-  const { blockNumber } = await web3.eth.getTransaction(hash);
-  const { timestamp } = await web3.eth.getBlock(blockNumber);
+export const getDayOnly = date => {
+  return (
+    date.getFullYear().toString() +
+    ":" +
+    date.getMonth().toString() +
+    ":" +
+    date.getDate().toString()
+  );
+};
 
-  return new Date(timestamp * 1000);
+export const getEthTransactionDate = async hash => {
+  // const { blockNumber } = await web3.eth.getTransaction(hash);
+  // const { timestamp } = await web3.eth.getBlock(blockNumber);
+
+  // return new Date(timestamp * 1000);
+
+  web3.eth.getTransaction(hash).then(hash => {
+    web3.eth.getBlock(hash.blockNumber).then(block => {
+      const date = new Date(block.timestamp * 1000);
+      return date;
+    });
+  });
 };
