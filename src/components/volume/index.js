@@ -25,7 +25,7 @@ export default () => {
   // Prices from Jelly provider
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const volumeContext = useContext(VolumeContext);
-  const { volume } = volumeContext;
+  const { ethVolume } = volumeContext;
 
   const [datesForChart, setDatesForChart] = useState([]);
   const [chosenToken, setChosenToken] = useState("ETH");
@@ -38,12 +38,12 @@ export default () => {
   };
 
   useEffect(() => {
-    if (volume.length > 0) {
+    if (ethVolume.length > 0) {
       setDatesForChart(
-        aggregateVolumeDates(volume, safeAccess(prices, ["USDT"]))
+        aggregateVolumeDates(ethVolume, safeAccess(prices, ["USDT"]))
       );
     }
-  }, [volume, prices]);
+  }, [ethVolume, prices]);
 
   useEffect(() => {
     let options = [];

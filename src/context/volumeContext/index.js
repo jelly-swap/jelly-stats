@@ -1,39 +1,57 @@
 import React, { useReducer, useEffect } from "react";
 import reducer from "./reducer";
-import { loadEthWithdraws, loadAeWithdraws, loadVolume } from "./actions";
+import {
+  loadEthWithdraws,
+  loadAeWithdraws,
+  loadEthVolume,
+  loadAeVolume
+} from "./actions";
 import VolumeContext from "./context";
 
 const VolumeState = props => {
   const initialState = {
     ethWithdraws: [],
     aeWithdraws: [],
-    volume: []
+    ethVolume: [],
+    aeVolume: []
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const onLoadEthWthdraws = async () => dispatch(await loadEthWithdraws());
   const onLoadAeWthdraws = async () => dispatch(await loadAeWithdraws());
 
-  const onLoadVolume = async ethWithdraws =>
-    dispatch(await loadVolume(ethWithdraws));
+  const onLoadEthVolume = async withdraws =>
+    dispatch(await loadEthVolume(withdraws));
+
+  const onLoadAeVolume = async withdraws =>
+    dispatch(await loadAeVolume(withdraws));
 
   useEffect(() => {
-    onLoadEthWthdraws();
     onLoadAeWthdraws();
   }, []);
 
   useEffect(() => {
-    onLoadVolume(state.ethWithdraws);
+    onLoadEthWthdraws();
+  }, []);
+
+  useEffect(() => {
+    onLoadEthVolume(state.ethWithdraws);
   }, [state.ethWithdraws]);
+
+  useEffect(() => {
+    onLoadAeVolume(state.aeWithdraws);
+  }, [state.aeWithdraws]);
 
   return (
     <VolumeContext.Provider
       value={{
         ethWithdraws: state.ethWithdraws,
-        volume: state.volume,
+        ethVolume: state.ethVolume,
+        aeVolume: state.aeVolume,
 
         // actions
-        onLoadVolume,
+        onLoadAeVolume,
+        onLoadEthVolume,
         onLoadEthWthdraws,
         onLoadAeWthdraws,
         dispatch

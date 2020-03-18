@@ -1,7 +1,11 @@
-import { LOAD_ETH_WITHDRAWS, LOAD_AE_WITHDRAWS, LOAD_VOLUME } from "./types";
+import {
+  LOAD_ETH_WITHDRAWS,
+  LOAD_AE_WITHDRAWS,
+  LOAD_ETH_VOLUME,
+  LOAD_AE_VOLUME
+} from "./types";
 
 export default (state, action) => {
-  console.log("ACTION ", action);
   switch (action.type) {
     case LOAD_ETH_WITHDRAWS: {
       const { ethWithdraws } = action.payload;
@@ -19,12 +23,21 @@ export default (state, action) => {
         aeWithdraws: aeWithdraws
       };
     }
-    case LOAD_VOLUME: {
-      const { volume } = action.payload;
+    case LOAD_ETH_VOLUME: {
+      const { ethVolume } = action.payload;
 
       return {
         ...state,
-        volume: volume
+        ethVolume: ethVolume
+      };
+    }
+
+    case LOAD_AE_VOLUME: {
+      const { aeVolume } = action.payload;
+
+      return {
+        ...state,
+        aeVolume: aeVolume
       };
     }
 

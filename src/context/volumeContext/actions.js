@@ -1,8 +1,17 @@
 import * as jellyEth from "@jelly-swap/ethereum";
 import * as jellyAeternity from "@jelly-swap/aeternity";
 
-import { LOAD_ETH_WITHDRAWS, LOAD_AE_WITHDRAWS, LOAD_VOLUME } from "./types";
-import { getEthTransactionDate, clearTimeFromDate } from "../../utils";
+import {
+  LOAD_ETH_WITHDRAWS,
+  LOAD_AE_WITHDRAWS,
+  LOAD_ETH_VOLUME,
+  LOAD_AE_VOLUME
+} from "./types";
+import {
+  getEthTransactionDate,
+  getAeTransactionDate,
+  clearTimeFromDate
+} from "../../utils";
 
 export const loadEthWithdraws = async () => {
   const provider = new jellyEth.Providers.WalletProvider(
@@ -43,6 +52,8 @@ export const loadAeWithdraws = async () => {
   config.wsUrl = "wss://mainnet.aeternal.io/websocket";
   config.providerUrl = "https://sdk-mainnet.aepps.com/";
   config.internalUrl = "https://sdk-mainnet.aepps.com/";
+  config.contractAddress =
+    "ct_2uzC4JohWtXs9Q8mnMCHET24VMiyEK6ZQBxeuNrjtq42Mbh9qH";
 
   const httpProvider = new jellyAeternity.Providers.HTTP(config, {
     publicKey: "ak_SMwGaaRfryc8s7wPhpa1jzxAAtJfkWz2rZG5zrBny968Eqiqr",
@@ -51,20 +62,17 @@ export const loadAeWithdraws = async () => {
   });
 
   const aeternityContract = new jellyAeternity.Contract(httpProvider);
+
   await aeternityContract.subscribe();
 
   // Get past blockchain events
-  const swaps = await aeternityContract.getPastEvents("new", w => w);
-
-  const aeWithdraws = swaps.filter(s => {
-    return s.status === 3;
-  });
-  console.log("ae withdraws ", aeWithdraws);
+  const swaps = await aeternityContract.getPastEvents();
+  const aeWithdraws = swaps.withdraws;
 
   try {
     return {
       type: LOAD_AE_WITHDRAWS,
-      payload: { aeWithdraws: { 1: "Test" } }
+      payload: { aeWithdraws: aeWithdraws }
     };
   } catch (error) {
     return {
@@ -74,7 +82,7 @@ export const loadAeWithdraws = async () => {
   }
 };
 
-export const loadVolume = async withdraws => {
+export const loadEthVolume = async withdraws => {
   const amounts = withdraws.map(w => {
     return w.inputAmount;
   });
@@ -102,13 +110,52 @@ export const loadVolume = async withdraws => {
 
   try {
     return {
-      type: LOAD_VOLUME,
-      payload: { volume: await getDates() }
+      type: LOAD_ETH_VOLUME,
+      payload: { ethVolume: await getDates() }
     };
   } catch (error) {
     return {
-      type: LOAD_VOLUME,
-      payload: { volume: null }
+      type: LOAD_ETH_VOLUME,
+      payload: { ethVolume: null }
+    };
+  }
+};
+
+export const loadAeVolume = async withdraws => {
+  const amounts = withdraws.map(w => {
+    return w.inputAmount;
+  });
+
+  const transformethWithdraws = item => {
+    return Promise.resolve(getAeTransactionDate(item.transactionHash));
+  };
+
+  const funnel = async item => {
+    return transformethWithdraws(item);
+  };
+
+  const getDates = async () => {
+    const dates = await Promise.all(
+      withdraws.map(item => {
+        const res = funnel(item);
+        return res;
+      })
+    );
+
+    return dates.map((d, i) => {
+      return { x: clearTimeFromDate(d), y: amounts[i] / 1000000000000000000 };
+    });
+  };
+
+  try {
+    return {
+      type: LOAD_AE_VOLUME,
+      payload: { aeVolume: await getDates() }
+    };
+  } catch (error) {
+    return {
+      type: LOAD_AE_VOLUME,
+      payload: { aeVolume: null }
     };
   }
 };

@@ -140,6 +140,10 @@ export const getEthTransactionDate = async hash => {
   return new Date(timestamp * 1000);
 };
 
+export const getAeTransactionDate = async hash => {
+  return new Date();
+};
+
 export const selectorStyles = () => {
   return {
     container: provided => ({
