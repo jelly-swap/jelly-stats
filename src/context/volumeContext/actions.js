@@ -66,8 +66,8 @@ export const loadAeWithdraws = async () => {
   await aeternityContract.subscribe();
 
   // Get past blockchain events
-  const swaps = await aeternityContract.getPastEvents();
-  const aeWithdraws = swaps.withdraws;
+  const aeWithdraws = await aeternityContract.getPastEvents("withdraw", w => w);
+  console.log("IMMM ", aeWithdraws);
 
   try {
     return {
@@ -126,6 +126,8 @@ export const loadAeVolume = async withdraws => {
     return w.inputAmount;
   });
 
+  console.log("IM ", withdraws);
+
   const transformethWithdraws = item => {
     return Promise.resolve(getAeTransactionDate(item.transactionHash));
   };
@@ -143,7 +145,7 @@ export const loadAeVolume = async withdraws => {
     );
 
     return dates.map((d, i) => {
-      return { x: clearTimeFromDate(d), y: amounts[i] / 1000000000000000000 };
+      return { x: clearTimeFromDate(d), y: 1 };
     });
   };
 

@@ -25,7 +25,9 @@ export default () => {
   // Prices from Jelly provider
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const volumeContext = useContext(VolumeContext);
-  const { ethVolume } = volumeContext;
+  const { ethVolume, aeVolume } = volumeContext;
+
+  console.log("AE VOL ", aeVolume);
 
   const [datesForChart, setDatesForChart] = useState([]);
   const [chosenToken, setChosenToken] = useState("ETH");
