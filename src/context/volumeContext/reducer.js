@@ -6,8 +6,6 @@ import {
 } from "./types";
 
 export default (state, action) => {
-  console.log("ACTION ", action);
-
   switch (action.type) {
     case LOAD_ETH_WITHDRAWS: {
       const { ethWithdraws } = action.payload;

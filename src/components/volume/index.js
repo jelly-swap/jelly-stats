@@ -16,7 +16,7 @@ import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
 
 import "./style.scss";
-const VOLUME_AVAILABLE_TOKENS = ["eth", "ae"];
+const VOLUME_AVAILABLE_TOKENS = ["eth"];
 
 export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
@@ -26,8 +26,6 @@ export default () => {
   const prices = safeAccess(providerInfo[0], ["prices"]);
   const volumeContext = useContext(VolumeContext);
   const { ethVolume, aeVolume } = volumeContext;
-
-  console.log("AE VOL ", aeVolume);
 
   const [datesForChart, setDatesForChart] = useState([]);
   const [chosenToken, setChosenToken] = useState("ETH");
@@ -116,7 +114,7 @@ export default () => {
       {datesForChart.length > 0 ? (
         <Chart
           chartData={chartData}
-          titleText="Total Volume (in USD) - For All Time"
+          titleText={`${chosenToken} Total Volume (in USD) - For All Time`}
           tooltips={tooltips}
         />
       ) : (
