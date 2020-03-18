@@ -1,11 +1,7 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 
-export default props => {
-  const chartData = props.chartData;
-  const titleText = props.titleText;
-  const tooltips = props.tooltips;
-
+export default ({ chartData, titleText, tooltips }) => {
   return (
     <div className="chart">
       <Pie

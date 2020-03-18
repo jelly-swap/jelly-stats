@@ -1,44 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
 
-// import { clearTimeFromDate } from "../../utils";
-
 import "./style.scss";
 
 export default () => {
   const volumeContext = useContext(VolumeContext);
   const { volume } = volumeContext;
-  // const [chartDates, setChartDates] = useState([]);
-
-  console.log("VOL ", volume);
-
-  // useEffect(() => {
-  //   Object.values(volume).forEach(() => {
-  //     const rawDates = {};
-  //     const finalChartData = [];
-
-  //     Object.values(volume).forEach(date => {
-  //       if (!rawDates[clearTimeFromDate(date)]) {
-  //         rawDates[clearTimeFromDate(date)] = 1;
-  //       } else {
-  //         rawDates[clearTimeFromDate(date)]++;
-  //       }
-  //     });
-
-  //     Object.entries(rawDates).forEach(entry => {
-  //       const date = entry[0];
-  //       const count = entry[1];
-
-  //       finalChartData.push({ x: date, y: count });
-  //     });
-
-  //     setChartDates(finalChartData);
-  //   });
-  // }, [volume]);
 
   const chartData = {
     datasets: [

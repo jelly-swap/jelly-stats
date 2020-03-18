@@ -35,8 +35,6 @@ export const loadWithdraws = async () => {
 };
 
 export const loadVolume = async withdraws => {
-  console.log("WITHDRAWS ", withdraws);
-
   const amounts = withdraws.map(w => {
     return w.inputAmount;
   });
