@@ -1,13 +1,13 @@
-import { LOAD_WITHDRAWS, LOAD_VOLUME } from "./types";
+import { LOAD_ETH_EITHDRAWS, LOAD_VOLUME } from "./types";
 
 export default (state, action) => {
   switch (action.type) {
-    case LOAD_WITHDRAWS: {
-      const { withdraws } = action.payload;
+    case LOAD_ETH_EITHDRAWS: {
+      const { ethWithdraws } = action.payload;
       return {
         ...state,
 
-        withdraws: withdraws
+        ethWithdraws: ethWithdraws
       };
     }
     case LOAD_VOLUME: {

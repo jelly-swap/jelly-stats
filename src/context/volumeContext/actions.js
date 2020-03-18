@@ -1,5 +1,5 @@
 import * as jellyEth from "@jelly-swap/ethereum";
-import { LOAD_WITHDRAWS, LOAD_VOLUME } from "./types";
+import { LOAD_ETH_EITHDRAWS, LOAD_VOLUME } from "./types";
 import { getEthTransactionDate, clearTimeFromDate } from "../../utils";
 
 const provider = new jellyEth.Providers.WalletProvider(
@@ -7,7 +7,7 @@ const provider = new jellyEth.Providers.WalletProvider(
   "https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144"
 );
 
-export const loadWithdraws = async () => {
+export const loadethWithdraws = async () => {
   const config = jellyEth.Config();
   config.contractAddress = "0xf567ea9138fe836555b9002abeea42a9dbf16ac5";
 
@@ -17,39 +17,39 @@ export const loadWithdraws = async () => {
 
   const swaps = await ethContract.getPastEvents("new", w => w);
 
-  const withdraws = swaps.filter(s => {
+  const ethWithdraws = swaps.filter(s => {
     return s.status === 3;
   });
 
   try {
     return {
-      type: LOAD_WITHDRAWS,
-      payload: { withdraws: withdraws }
+      type: LOAD_ETH_EITHDRAWS,
+      payload: { ethWithdraws: ethWithdraws }
     };
   } catch (error) {
     return {
-      type: LOAD_WITHDRAWS,
-      payload: { withdraws: null }
+      type: LOAD_ETH_EITHDRAWS,
+      payload: { ethWithdraws: null }
     };
   }
 };
 
-export const loadVolume = async withdraws => {
-  const amounts = withdraws.map(w => {
+export const loadVolume = async ethWithdraws => {
+  const amounts = ethWithdraws.map(w => {
     return w.inputAmount;
   });
 
-  const transformWithdraws = item => {
+  const transformethWithdraws = item => {
     return Promise.resolve(getEthTransactionDate(item.transactionHash));
   };
 
   const funnel = async item => {
-    return transformWithdraws(item);
+    return transformethWithdraws(item);
   };
 
   const getDates = async () => {
     const dates = await Promise.all(
-      withdraws.map(item => {
+      ethWithdraws.map(item => {
         const res = funnel(item);
         return res;
       })

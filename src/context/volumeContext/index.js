@@ -1,30 +1,31 @@
 import React, { useReducer, useEffect } from "react";
 import reducer from "./reducer";
-import { loadWithdraws, loadVolume } from "./actions";
+import { loadethWithdraws, loadVolume } from "./actions";
 import VolumeContext from "./context";
 
 const VolumeState = props => {
   const initialState = {
-    withdraws: [],
+    ethWithdraws: [],
     volume: []
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const onLoadWthdraws = async () => dispatch(await loadWithdraws());
-  const onLoadVolume = async withdraws => dispatch(await loadVolume(withdraws));
+  const onLoadWthdraws = async () => dispatch(await loadethWithdraws());
+  const onLoadVolume = async ethWithdraws =>
+    dispatch(await loadVolume(ethWithdraws));
 
   useEffect(() => {
     onLoadWthdraws();
   }, []);
 
   useEffect(() => {
-    onLoadVolume(state.withdraws);
-  }, [state.withdraws]);
+    onLoadVolume(state.ethWithdraws);
+  }, [state.ethWithdraws]);
 
   return (
     <VolumeContext.Provider
       value={{
-        withdraws: state.withdraws,
+        ethWithdraws: state.ethWithdraws,
         volume: state.volume,
 
         // actions
