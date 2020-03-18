@@ -121,10 +121,6 @@ export const loadEthVolume = async withdraws => {
 };
 
 export const loadAeVolume = async withdraws => {
-  const amounts = withdraws.map(w => {
-    return w.inputAmount;
-  });
-
   const transformethWithdraws = item => {
     return Promise.resolve(getAeTransactionDate(item.transactionHash));
   };
