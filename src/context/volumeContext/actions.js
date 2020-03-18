@@ -1,6 +1,6 @@
 import * as jellyEth from "@jelly-swap/ethereum";
 import { LOAD_WITHDRAWS, LOAD_VOLUME } from "./types";
-import { getEthTransactionDate } from "../../utils";
+import { getEthTransactionDate, clearTimeFromDate } from "../../utils";
 
 const provider = new jellyEth.Providers.WalletProvider(
   "e76a85c5d0b785b33ca285b76423833375ca4924381a4e4e7f3e1c93156d2473",
@@ -56,7 +56,7 @@ export const loadVolume = async withdraws => {
     );
 
     return dates.map((d, i) => {
-      return { x: d, y: amounts[i] / 1000000000000000000 };
+      return { x: clearTimeFromDate(d), y: amounts[i] / 1000000000000000000 };
     });
   };
 

@@ -45,6 +45,37 @@ export const aggregateBalances = (providerInfo, token) => {
   return res;
 };
 
+export const aggregateVolumeDates = (volume, pricesInUSDT) => {
+  const resObj = {};
+  const resArr = [];
+
+  volume.forEach(vEntry => {
+    const amountPerDate = volume.filter(v => {
+      return v.x.toString() === vEntry.x.toString();
+    });
+
+    resObj[vEntry.x] = amountPerDate;
+  });
+
+  Object.entries(resObj).forEach(entry => {
+    const date = entry[0];
+    const amountsObj = entry[1];
+
+    const sum = amountsObj
+      .map(a => {
+        return a.y;
+      })
+      .reduce((a, b) => {
+        return a + b;
+      }, 0);
+
+    const sumInUSDT = sum / safeAccess(pricesInUSDT, ["ETH"]);
+    resArr.push({ x: date, y: sumInUSDT.toFixed(0) });
+  });
+
+  return resArr;
+};
+
 export const aggregateProviders = providerInfo => {
   let resArr = [];
 

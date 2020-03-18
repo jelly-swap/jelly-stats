@@ -1,6 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import ProviderInfoContext from "../../context/providerInfo/context";
+
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { aggregateVolumeDates, safeAccess } from "../../utils";
 
 import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
@@ -8,14 +11,30 @@ import Chart from "../../utils/lineChart";
 import "./style.scss";
 
 export default () => {
+  const providerInfoContext = useContext(ProviderInfoContext);
+  const { providerInfo } = providerInfoContext;
+
+  // Prices from Jelly provider
+  const prices = safeAccess(providerInfo[0], ["prices"]);
+
   const volumeContext = useContext(VolumeContext);
   const { volume } = volumeContext;
+
+  const [datesForChart, setDatesForChart] = useState([]);
+
+  useEffect(() => {
+    if (volume.length > 0) {
+      setDatesForChart(
+        aggregateVolumeDates(volume, safeAccess(prices, ["USDT"]))
+      );
+    }
+  }, [volume, prices]);
 
   const chartData = {
     datasets: [
       {
         label: "Volume",
-        data: volume,
+        data: datesForChart,
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)",
           "rgba(54, 162, 235, 0.6)",
@@ -31,10 +50,10 @@ export default () => {
 
   return (
     <div className="volume">
-      {volume.length > 0 ? (
+      {datesForChart.length > 0 ? (
         <Chart
           chartData={chartData}
-          titleText="Total Volume (completed swaps) - For All Time"
+          titleText="Total Volume (in USD) - For All Time"
         />
       ) : (
         <Loader

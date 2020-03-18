@@ -6,7 +6,7 @@ import VolumeContext from "./context";
 const VolumeState = props => {
   const initialState = {
     withdraws: [],
-    volume: {}
+    volume: []
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
