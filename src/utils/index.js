@@ -123,6 +123,18 @@ export const clearTimeFromDate = date => {
   return newDate;
 };
 
+export const getDayOnly = date => {
+  console.log("INPUT ", date);
+
+  date = new Date(date);
+
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString();
+  const day = date.getDate().toString();
+
+  return day + "." + month + "." + year;
+};
+
 export const getEthTransactionDate = async hash => {
   const { blockNumber } = await web3.eth.getTransaction(hash);
   const { timestamp } = await web3.eth.getBlock(blockNumber);

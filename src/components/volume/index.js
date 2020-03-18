@@ -3,7 +3,7 @@ import ProviderInfoContext from "../../context/providerInfo/context";
 
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { aggregateVolumeDates, safeAccess } from "../../utils";
+import { aggregateVolumeDates, safeAccess, getDayOnly } from "../../utils";
 
 import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
@@ -21,6 +21,12 @@ export default () => {
   const { volume } = volumeContext;
 
   const [datesForChart, setDatesForChart] = useState([]);
+
+  const calcTokenAmount = (network, priceInUSDT) => {
+    const pricePerOne = safeAccess(prices, ["USDT", network]);
+    const amount = priceInUSDT * pricePerOne;
+    return amount.toFixed(3);
+  };
 
   useEffect(() => {
     if (volume.length > 0) {
@@ -48,12 +54,33 @@ export default () => {
     ]
   };
 
+  const tooltips = {
+    enabled: true,
+    callbacks: {
+      label: (tooltipItem, data) => {
+        const { index } = tooltipItem;
+        const network = "ETH";
+        const amountInUsd = data.datasets[0].data[index].y;
+
+        return `Volume: ${calcTokenAmount(
+          network,
+          amountInUsd
+        )} ${network} (${amountInUsd} $)`;
+      },
+      title: tooltipItem => {
+        const date = tooltipItem[0].xLabel;
+        return getDayOnly(date);
+      }
+    }
+  };
+
   return (
     <div className="volume">
       {datesForChart.length > 0 ? (
         <Chart
           chartData={chartData}
           titleText="Total Volume (in USD) - For All Time"
+          tooltips={tooltips}
         />
       ) : (
         <Loader

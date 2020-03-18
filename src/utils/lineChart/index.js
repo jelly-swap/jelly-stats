@@ -1,10 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-export default props => {
-  const chartData = props.chartData;
-  const titleText = props.titleText;
-
+export default ({ chartData, titleText, tooltips }) => {
   return (
     <div className="chart">
       <Line
@@ -18,6 +15,10 @@ export default props => {
             fontColor: "#fcfcfc",
             fontSize: "18",
             padding: "15"
+          },
+
+          tooltips: {
+            ...tooltips
           },
 
           legend: {
