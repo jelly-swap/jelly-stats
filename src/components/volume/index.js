@@ -24,7 +24,6 @@ export default () => {
 
   // Prices from Jelly provider
   const prices = safeAccess(providerInfo[0], ["prices"]);
-  console.log("PRICES ", prices);
   const volumeContext = useContext(VolumeContext);
   const { volume } = volumeContext;
 

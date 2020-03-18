@@ -1,21 +1,25 @@
 import React, { useReducer, useEffect } from "react";
 import reducer from "./reducer";
-import { loadethWithdraws, loadVolume } from "./actions";
+import { loadEthWithdraws, loadAeWithdraws, loadVolume } from "./actions";
 import VolumeContext from "./context";
 
 const VolumeState = props => {
   const initialState = {
     ethWithdraws: [],
+    aeWithdraws: [],
     volume: []
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const onLoadWthdraws = async () => dispatch(await loadethWithdraws());
+  const onLoadEthWthdraws = async () => dispatch(await loadEthWithdraws());
+  const onLoadAeWthdraws = async () => dispatch(await loadAeWithdraws());
+
   const onLoadVolume = async ethWithdraws =>
     dispatch(await loadVolume(ethWithdraws));
 
   useEffect(() => {
-    onLoadWthdraws();
+    onLoadEthWthdraws();
+    onLoadAeWthdraws();
   }, []);
 
   useEffect(() => {
@@ -30,7 +34,8 @@ const VolumeState = props => {
 
         // actions
         onLoadVolume,
-        onLoadWthdraws,
+        onLoadEthWthdraws,
+        onLoadAeWthdraws,
         dispatch
       }}
     >

@@ -124,8 +124,6 @@ export const clearTimeFromDate = date => {
 };
 
 export const getDayOnly = date => {
-  console.log("INPUT ", date);
-
   date = new Date(date);
 
   const year = date.getFullYear().toString();
