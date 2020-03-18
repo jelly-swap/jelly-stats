@@ -142,6 +142,15 @@ export const getEthTransactionDate = async hash => {
   return new Date(timestamp * 1000);
 };
 
+export const selectorStyles = () => {
+  return {
+    container: provided => ({
+      ...provided,
+      width: "300px"
+    })
+  };
+};
+
 export const useInterval = (callback, delay, params) => {
   const savedCallback = useRef();
 

@@ -1,14 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
+import Select from "react-select";
+
 import ProviderInfoContext from "../../context/providerInfo/context";
 
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { aggregateVolumeDates, safeAccess, getDayOnly } from "../../utils";
+import {
+  aggregateVolumeDates,
+  safeAccess,
+  getDayOnly,
+  selectorStyles
+} from "../../utils";
 
 import VolumeContext from "../../context/volumeContext/context";
 import Chart from "../../utils/lineChart";
 
 import "./style.scss";
+const VOLUME_AVAILABLE_TOKENS = ["eth", "ae"];
 
 export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
@@ -16,11 +24,13 @@ export default () => {
 
   // Prices from Jelly provider
   const prices = safeAccess(providerInfo[0], ["prices"]);
-
+  console.log("PRICES ", prices);
   const volumeContext = useContext(VolumeContext);
   const { volume } = volumeContext;
 
   const [datesForChart, setDatesForChart] = useState([]);
+  const [chosenToken, setChosenToken] = useState("ETH");
+  const [selectorOptions, setSelectorOptions] = useState([]);
 
   const calcTokenAmount = (network, priceInUSDT) => {
     const pricePerOne = safeAccess(prices, ["USDT", network]);
@@ -35,6 +45,25 @@ export default () => {
       );
     }
   }, [volume, prices]);
+
+  useEffect(() => {
+    let options = [];
+    if (prices) {
+      const keys = Object.keys(prices);
+      keys.forEach(e => {
+        options.push({
+          value: e.toLocaleLowerCase(),
+          label: e
+        });
+      });
+    }
+
+    setSelectorOptions(
+      options.filter(option => {
+        return VOLUME_AVAILABLE_TOKENS.includes(option.value);
+      })
+    );
+  }, [prices]);
 
   const chartData = {
     datasets: [
@@ -76,6 +105,13 @@ export default () => {
 
   return (
     <div className="volume">
+      <Select
+        options={selectorOptions}
+        styles={selectorStyles()}
+        onChange={e => setChosenToken(e.label)}
+        placeholder={chosenToken}
+        value={chosenToken}
+      />
       {datesForChart.length > 0 ? (
         <Chart
           chartData={chartData}

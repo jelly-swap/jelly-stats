@@ -3,14 +3,13 @@ import Select from "react-select";
 import {
   safeAccess,
   aggregateProviders,
-  getAddressesPerToken
+  getAddressesPerToken,
+  selectorStyles
 } from "../../utils";
 import Chart from "../../utils/pieChart";
 import Error from "../../components/error";
 
 import ProviderInfoContext from "../../context/providerInfo/context";
-
-import selectorStyles from "./selectorStyles";
 
 import "./styles.scss";
 
