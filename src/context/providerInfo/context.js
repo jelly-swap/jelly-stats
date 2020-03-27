@@ -1,5 +1,5 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-const providerInfoContext = createContext();
+const providersInfoContext = createContext();
 
-export default providerInfoContext;
+export default providersInfoContext;

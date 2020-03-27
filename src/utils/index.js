@@ -1,19 +1,12 @@
-import Web3 from "web3";
-import { useEffect, useRef } from "react";
+import Web3 from 'web3';
+import { useEffect, useRef } from 'react';
 
-const web3 = new Web3(
-  new Web3.providers.HttpProvider(
-    "https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144"
-  )
-);
+const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144'));
 
 export const safeAccess = (object, path) => {
   return object
     ? path.reduce(
-        (accumulator, currentValue) =>
-          accumulator && accumulator[currentValue]
-            ? accumulator[currentValue]
-            : null,
+        (accumulator, currentValue) => (accumulator && accumulator[currentValue] ? accumulator[currentValue] : null),
         object
       )
     : null;
@@ -21,7 +14,7 @@ export const safeAccess = (object, path) => {
 
 export const formatDisplayAddr = addr => {
   addr = addr.toString();
-  return addr.substring(0, 6) + "..." + addr.substring(addr.length - 6);
+  return addr.substring(0, 6) + '...' + addr.substring(addr.length - 6);
 };
 
 export const formatDisplayNum = balance => {
@@ -30,14 +23,14 @@ export const formatDisplayNum = balance => {
 
 export const openLink = url => event => {
   event.preventDefault();
-  const win = window.open(url, "_blank");
+  const win = window.open(url, '_blank');
   win.focus();
 };
 
 export const aggregateBalances = (providerInfo, token) => {
   let res = 0;
   providerInfo.forEach(providerInfo => {
-    const balances = safeAccess(providerInfo, ["balances"]);
+    const balances = safeAccess(providerInfo, ['balances']);
     const chosenTokenRates = safeAccess(balances, [token]);
 
     res += parseFloat(chosenTokenRates.balanceShort);
@@ -69,7 +62,7 @@ export const aggregateVolumeDates = (volume, pricesInUSDT) => {
         return a + b;
       }, 0);
 
-    const sumInUSDT = sum / safeAccess(pricesInUSDT, ["ETH"]);
+    const sumInUSDT = sum / safeAccess(pricesInUSDT, ['ETH']);
     resArr.push({ x: date, y: sumInUSDT.toFixed(0) });
   });
 
@@ -80,7 +73,7 @@ export const aggregateProviders = providerInfo => {
   let resArr = [];
 
   providerInfo.forEach(providerInfo => {
-    const balances = safeAccess(providerInfo, ["balances"]);
+    const balances = safeAccess(providerInfo, ['balances']);
     const entries = Object.entries(balances);
 
     let resObject = {};
@@ -102,9 +95,7 @@ export const getAddressesPerToken = (aggregateProviders, token) => {
 
   aggregateProviders.forEach(provider => {
     const { address, balanceShort } = safeAccess(provider, [token]);
-    addressesWithBalance[formatDisplayAddr(address)] = formatDisplayNum(
-      balanceShort
-    );
+    addressesWithBalance[formatDisplayAddr(address)] = formatDisplayNum(balanceShort);
   });
   return addressesWithBalance;
 };
@@ -130,7 +121,7 @@ export const getDayOnly = date => {
   const month = (date.getMonth() + 1).toString();
   const day = date.getDate().toString();
 
-  return day + "." + month + "." + year;
+  return day + '.' + month + '.' + year;
 };
 
 export const getEthTransactionDate = async hash => {
@@ -148,7 +139,8 @@ export const selectorStyles = () => {
   return {
     container: provided => ({
       ...provided,
-      width: "300px"
+      width: '30%',
+      marginRight: '9%'
     })
   };
 };

@@ -1,37 +1,50 @@
-import React, { useReducer, useEffect } from "react";
-import reducer from "./reducer";
-import { fetchProviderInfo } from "./actions";
-import { useInterval } from "../../utils";
-import ProviderInfoContext from "./context";
+import React, { useReducer, useEffect } from 'react';
+import reducer from './reducer';
+import { fetchProvidersInfo, aggregateTokens } from './actions';
+import { useInterval } from '../../utils';
+import ProvidersInfoContext from './context';
 
-const ProviderInfoState = props => {
+const ProvidersInfoState = props => {
   const initialState = {
-    providerInfo: []
+    providersInfo: null,
+    tokens: {
+      AE: 0,
+      BTC: 0,
+      DAI: 0,
+      ETH: 0,
+      WBTC: 0
+    }
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const onFetchProviderInfo = async () => dispatch(await fetchProviderInfo());
+  const onFetchProvidersInfo = async () => dispatch(await fetchProvidersInfo());
 
   useEffect(() => {
-    onFetchProviderInfo();
+    onFetchProvidersInfo();
   }, []);
 
+  useEffect(() => {
+    if (state.providersInfo) {
+      dispatch(aggregateTokens(state.providersInfo));
+    }
+  }, [state.providersInfo]);
+
   useInterval(async () => {
-    dispatch(await fetchProviderInfo());
+    dispatch(await fetchProvidersInfo());
   }, 10000);
 
   return (
-    <ProviderInfoContext.Provider
+    <ProvidersInfoContext.Provider
       value={{
-        providerInfo: state.providerInfo,
-
+        providerInfo: state.providersInfo,
+        tokens: state.tokens,
         // actions
-        onFetchProviderInfo
+        onFetchProvidersInfo
       }}
     >
       {props.children}
-    </ProviderInfoContext.Provider>
+    </ProvidersInfoContext.Provider>
   );
 };
 
-export default ProviderInfoState;
+export default ProvidersInfoState;
