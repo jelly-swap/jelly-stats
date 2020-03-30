@@ -1,4 +1,4 @@
-import { FETCH_PROVIDERS_INFO, AGGREGATE_TOKENS } from './types';
+import { FETCH_PROVIDERS_INFO, AGGREGATE_TOKENS, AGGREGATE_USDT_PRICES } from './types';
 
 export default (state, action) => {
   switch (action.type) {
@@ -15,6 +15,12 @@ export default (state, action) => {
       return {
         ...state,
         tokens: { ...action.payload }
+      };
+    }
+    case AGGREGATE_USDT_PRICES: {
+      return {
+        ...state,
+        usdtPrices: { ...action.payload }
       };
     }
 

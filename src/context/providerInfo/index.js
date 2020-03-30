@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import reducer from './reducer';
-import { fetchProvidersInfo, aggregateTokens } from './actions';
+import { fetchProvidersInfo, aggregateTokens, aggregateUSDTPrices } from './actions';
 import { useInterval } from '../../utils';
 import ProvidersInfoContext from './context';
 
@@ -13,6 +13,14 @@ const ProvidersInfoState = props => {
       DAI: 0,
       ETH: 0,
       WBTC: 0
+    },
+    usdtPrices: {
+      'AE-USDT': 0,
+      'BTC-USDT': 0,
+      'DAI-USDT': 0,
+      'ETH-USDT': 0,
+      'WBTC-USDT': 0,
+      'USDT-USDT': 0
     }
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,6 +34,7 @@ const ProvidersInfoState = props => {
   useEffect(() => {
     if (state.providersInfo) {
       dispatch(aggregateTokens(state.providersInfo));
+      dispatch(aggregateUSDTPrices(state.providersInfo));
     }
   }, [state.providersInfo]);
 
@@ -38,6 +47,7 @@ const ProvidersInfoState = props => {
       value={{
         providerInfo: state.providersInfo,
         tokens: state.tokens,
+        usdtPrices: state.usdtPrices,
         // actions
         onFetchProvidersInfo
       }}
