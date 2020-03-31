@@ -1,35 +1,27 @@
-import * as jellyEth from "@jelly-swap/ethereum";
-import * as jellyAeternity from "@jelly-swap/aeternity";
+import * as jellyEth from '@jelly-swap/ethereum';
+import * as jellyAeternity from '@jelly-swap/aeternity';
 
-import {
-  LOAD_ETH_WITHDRAWS,
-  LOAD_AE_WITHDRAWS,
-  LOAD_ETH_VOLUME,
-  LOAD_AE_VOLUME
-} from "./types";
-import {
-  getEthTransactionDate,
-  getAeTransactionDate,
-  clearTimeFromDate
-} from "../../utils";
+import { LOAD_ETH_WITHDRAWS, LOAD_AE_WITHDRAWS, LOAD_ETH_VOLUME, LOAD_AE_VOLUME } from './types';
+import { getEthTransactionDate, getAeTransactionDate, clearTimeFromDate } from '../../utils';
 
 export const loadEthWithdraws = async () => {
-  const provider = new jellyEth.Providers.WalletProvider(
-    "e76a85c5d0b785b33ca285b76423833375ca4924381a4e4e7f3e1c93156d2473",
-    "https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144"
+  const provider = new jellyEth.Providers.JsonRpcProvider(
+    'https://mainnet.infura.io/v3/8fe4fc9626494d238879981936dbf144'
   );
 
   const config = jellyEth.Config();
-  config.contractAddress = "0xf567ea9138fe836555b9002abeea42a9dbf16ac5";
+  config.contractAddress = '0xf567ea9138fe836555b9002abeea42a9dbf16ac5';
 
   const ethContract = new jellyEth.Contract(provider, config);
 
-  await ethContract.subscribe();
+  const swaps = await ethContract.getPastEvents('new', {
+    new: { receiver: '0xb2cB83E2E367682B2C0d3AAF04131Dd94C41A1A9' }
+  });
 
-  const swaps = await ethContract.getPastEvents("new", w => w);
+  console.log('eth swaps', swaps);
 
   const ethWithdraws = swaps.filter(s => {
-    return s.status === 3;
+    return s.status === 5;
   });
 
   try {
@@ -47,31 +39,28 @@ export const loadEthWithdraws = async () => {
 
 export const loadAeWithdraws = async () => {
   const config = jellyAeternity.Config();
-  config.explorer = "https://explorer.aeternity.io/transactions/";
-  config.apiUrl = "https://mainnet.aeternal.io/";
-  config.wsUrl = "wss://mainnet.aeternal.io/websocket";
-  config.providerUrl = "https://sdk-mainnet.aepps.com/";
-  config.internalUrl = "https://sdk-mainnet.aepps.com/";
-  config.contractAddress =
-    "ct_2uzC4JohWtXs9Q8mnMCHET24VMiyEK6ZQBxeuNrjtq42Mbh9qH";
+  config.explorer = 'https://explorer.aeternity.io/transactions/';
+  config.apiUrl = 'https://mainnet.aeternal.io/';
+  config.wsUrl = 'wss://mainnet.aeternal.io/websocket';
+  config.providerUrl = 'https://sdk-mainnet.aepps.com/';
+  config.internalUrl = 'https://sdk-mainnet.aepps.com/';
+  config.contractAddress = 'ct_2uzC4JohWtXs9Q8mnMCHET24VMiyEK6ZQBxeuNrjtq42Mbh9qH';
 
-  const httpProvider = new jellyAeternity.Providers.HTTP(config, {
-    publicKey: "ak_SMwGaaRfryc8s7wPhpa1jzxAAtJfkWz2rZG5zrBny968Eqiqr",
-    secretKey:
-      "e6f7f740df605b297e1aec7326688ef8d31bed76d8e00f8f2ca76ff712938e373995cd2684368479b0d1069ea1471fc9926c0ca6489bc728f0b94c14c2c42fa0"
-  });
+  const httpProvider = new jellyAeternity.Providers.HTTP(config);
 
   const aeternityContract = new jellyAeternity.Contract(httpProvider);
 
-  await aeternityContract.subscribe();
-
   // Get past blockchain events
-  const aeWithdraws = await aeternityContract.getPastEvents("withdraw", w => w);
+  const aeWithdraws = await aeternityContract.getPastEvents('new', {
+    new: { receiver: 'ak_2Mgic2LxpXo7U4P9KTYqvF51ShNBCgRqWrVQ6pxwNnhZ78Ub1W' }
+  });
+
+  console.log('ae swaps', aeWithdraws);
 
   try {
     return {
       type: LOAD_AE_WITHDRAWS,
-      payload: { aeWithdraws: aeWithdraws }
+      payload: { aeWithdraws: aeWithdraws.swaps.filter(s => s.status === 5) }
     };
   } catch (error) {
     return {

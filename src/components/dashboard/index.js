@@ -1,34 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProviderInfoContext from '../../context/providerInfo/context';
-import { safeAccess } from '../../utils';
 
-import Error from '../error';
 import Card from './Card';
 
 import './style.scss';
 
 export default () => {
   const providerInfoContext = useContext(ProviderInfoContext);
-  const { providerInfo } = providerInfoContext;
-  const prices = safeAccess(providerInfo, ['prices']);
-  let pricesEntries = [];
+  const { usdtPrices } = providerInfoContext;
+  const [prices, setPrices] = useState(null);
 
-  if (prices) {
-    pricesEntries = Object.entries(prices);
-  }
+  useEffect(() => {
+    if (Object.values(usdtPrices).some(x => x.length)) {
+      setPrices(usdtPrices);
+    }
+  }, [usdtPrices]);
 
-  return providerInfo && providerInfo[0] ? (
+  return prices ? (
     <div className='dashboard slide-in-bottom'>
       <div className='card-container'>
-        {pricesEntries.map((e, i) => {
-          const network = e[0];
-          const pricesPerNetwork = e[1];
-          const priceToUSD = safeAccess(pricesPerNetwork, ['USDT']);
-          return <Card key={i} priceToUSD={priceToUSD} network={network} />;
+        {Object.entries(prices).map(([network, amount]) => {
+          return <Card key={network} priceToUSD={amount} network={network.split('-')[0]} />;
         })}
       </div>
     </div>
-  ) : (
-    <Error msg={'Cannot fetch data.'} />
-  );
+  ) : null;
 };

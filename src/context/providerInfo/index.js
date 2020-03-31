@@ -8,19 +8,26 @@ const ProvidersInfoState = props => {
   const initialState = {
     providersInfo: null,
     tokens: {
+      AE: [],
+      BTC: [],
+      DAI: [],
+      ETH: [],
+      WBTC: []
+    },
+    usdtPrices: {
+      'AE-USDT': [],
+      'BTC-USDT': [],
+      'DAI-USDT': [],
+      'ETH-USDT': [],
+      'WBTC-USDT': [],
+      'USDT-USDT': []
+    },
+    totalAmountForEachToken: {
       AE: 0,
       BTC: 0,
       DAI: 0,
       ETH: 0,
       WBTC: 0
-    },
-    usdtPrices: {
-      'AE-USDT': 0,
-      'BTC-USDT': 0,
-      'DAI-USDT': 0,
-      'ETH-USDT': 0,
-      'WBTC-USDT': 0,
-      'USDT-USDT': 0
     }
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -48,6 +55,7 @@ const ProvidersInfoState = props => {
         providerInfo: state.providersInfo,
         tokens: state.tokens,
         usdtPrices: state.usdtPrices,
+        totalAmountForEachToken: state.totalAmountForEachToken,
         // actions
         onFetchProvidersInfo
       }}

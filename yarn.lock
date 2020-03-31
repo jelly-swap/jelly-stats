@@ -2,13 +2,12 @@
 # yarn lockfile v1
 
 
-"@aeternity/aepp-sdk@^6.1.3":
-  version "6.1.3"
-  resolved "https://registry.yarnpkg.com/@aeternity/aepp-sdk/-/aepp-sdk-6.1.3.tgz#bb2e35176148cc7a0d672eb3cbad8f5d27ee9684"
-  integrity sha512-I8rJEMaHEvkcWEvMWJp4qGpqTlhSUjdPWiN/6vfuDN+qwpZndLNW74vwnfDKHm7LTxDhTLVq7/Y4xcPTSo8h1A==
+"@aeternity/aepp-sdk@7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@aeternity/aepp-sdk/-/aepp-sdk-7.1.1.tgz#bb8c3df28ecde39a2e363895f19501444d24d5d8"
+  integrity sha512-xSdmqyQZgCTpqCWAw+qUcMT5joId6gOYcT/aIWgw64FLlQaCqrqvvzeIfmt4aKqa+sKEex1vqmYjSrynbHTEgg==
   dependencies:
     "@aeternity/bip39" "^0.1.0"
-    "@babel/runtime" "^7.7.2"
     "@stamp/it" "^1.0.3"
     "@stamp/required" "^1.0.1"
     aes-js "^3.1.1"
@@ -17,17 +16,16 @@
     bip32-path "^0.4.2"
     blakejs "^1.1.0"
     bs58check "^2.1.1"
-    commander "^4.0.0"
-    ed2curve "^0.2.1"
+    ed2curve "^0.3.0"
     joi-browser "^13.4.0"
     libsodium-wrappers-sumo "0.7.6"
-    ramda "^0.26.1"
+    ramda "^0.27.0"
     rlp "2.2.4"
-    serialize-javascript "^2.1.2"
+    serialize-javascript "^3.0.0"
     sha.js "^2.4.11"
     tweetnacl "^1.0.0"
     tweetnacl-auth "^1.0.1"
-    uuid "^3.3.2"
+    uuid "^7.0.0"
     websocket "^1.0.26"
 
 "@aeternity/bip39@^0.1.0":
@@ -1053,51 +1051,38 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@jelly-swap/aeternity@^0.1.32":
-  version "0.1.32"
-  resolved "https://registry.yarnpkg.com/@jelly-swap/aeternity/-/aeternity-0.1.32.tgz#85d5278783b76e1000c9ef7ef39558d190551b2d"
-  integrity sha512-8TQeOLtJE5oEhnM87asqszoVeMYeJg0HPF5uQ8ARdq2O+cjOy72vm1JLkwlKOBFzUMe42xTwo9L5Wl5pkLXOAw==
+"@jelly-swap/aeternity@0.1.35":
+  version "0.1.35"
+  resolved "https://registry.yarnpkg.com/@jelly-swap/aeternity/-/aeternity-0.1.35.tgz#0fd809161bc8dab3d5faf3063e397b3e1cb087c4"
+  integrity sha512-1+yULXtMDeOSAY61sMGzO/1qG7TOQciAjvW/09Wi6CiqCz2M/ZY8mYtx2b52OWd/RVyw7D0PY3HSFQfoqs4SuA==
   dependencies:
-    "@aeternity/aepp-sdk" "^6.1.3"
-    "@jelly-swap/types" "^0.1.32"
-    "@jelly-swap/utils" "^0.1.32"
+    "@aeternity/aepp-sdk" "7.1.1"
+    "@jelly-swap/types" "^0.1.33"
+    "@jelly-swap/utils" "^0.1.33"
     axios "^0.19.0"
     bignumber.js "^9.0.0"
     json-bigint "^0.3.0"
     memoizee "^0.4.14"
     websocket "^1.0.31"
 
-"@jelly-swap/ethereum@^0.1.30":
-  version "0.1.30"
-  resolved "https://registry.yarnpkg.com/@jelly-swap/ethereum/-/ethereum-0.1.30.tgz#8463a1d0507549d490fe3771228620cdcb5d3033"
-  integrity sha512-8McVkchXd+OsD0Md15O0OJHF0FDkWt1fxqqXOgcWZoxU1kCVG8OEyFTJkLioW8OOoXIij45sT8PVwweTeEVkIA==
+"@jelly-swap/ethereum@0.1.34":
+  version "0.1.34"
+  resolved "https://registry.yarnpkg.com/@jelly-swap/ethereum/-/ethereum-0.1.34.tgz#61fc7ec7628c651666e171bc95eae4a2865b1747"
+  integrity sha512-eSus4WqjRBtX1OpFM3CQKWwDuNFxS5NIyR/RoO17yCxiEE3CadwcI2Q76//rq+71PHyGzzrSqsxCl7M80FaMlQ==
   dependencies:
-    "@jelly-swap/types" "^0.1.18"
-    "@jelly-swap/utils" "^0.1.18"
+    "@jelly-swap/types" "^0.1.33"
+    "@jelly-swap/utils" "^0.1.33"
     ethers "^4.0.40"
 
-"@jelly-swap/types@^0.1.18":
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/@jelly-swap/types/-/types-0.1.18.tgz#61bec4e7ad584fff8694bd52373480d56098f7c6"
-  integrity sha512-4Nv/V+/wytfuJCM0as7KAE1zou0it5AVwK1/mm8CxR028TFwRcgLT8jJUrEysFUkkop+4VQO1VrrVj6AipCQfw==
+"@jelly-swap/types@^0.1.33":
+  version "0.1.33"
+  resolved "https://registry.yarnpkg.com/@jelly-swap/types/-/types-0.1.33.tgz#f95e24e00f1a2b528f6aa2429d55c71e3138f294"
+  integrity sha512-ArE2Eqfcux4P1nRr+qrMYFCJgFwD8M7oEKTcohpADzlRpkb/ZZ0eN7t+MGLdmpXg2E1x20u0ZNmi0Nskl+TRRQ==
 
-"@jelly-swap/types@^0.1.32":
-  version "0.1.32"
-  resolved "https://registry.yarnpkg.com/@jelly-swap/types/-/types-0.1.32.tgz#b70afe4780c11964c83257bde84ed87ee5dd4afa"
-  integrity sha512-ZhKVab2ByOUOplS5Y6Gkje1bBs9WceAmm+m07o+6H0TtOm/m0ZQU6DFn3X90K5LvIYxFpVFYBDsy1RTGETRiiQ==
-
-"@jelly-swap/utils@^0.1.18":
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/@jelly-swap/utils/-/utils-0.1.18.tgz#a1ac0087ecf5632549aace6bbc727a67922816ee"
-  integrity sha512-FQZ+3+9U+B/Rlgn2FMgW9X0kPaC24mWstRH7hZjnzHLGi+hDUkU9bZXIEvY9/PpJi6I2Dx5OfkS0WU/bWHwFCg==
-  dependencies:
-    create-hash "^1.2.0"
-    moment "^2.24.0"
-
-"@jelly-swap/utils@^0.1.32":
-  version "0.1.32"
-  resolved "https://registry.yarnpkg.com/@jelly-swap/utils/-/utils-0.1.32.tgz#912f9405f97cb04e29e7df7c9df1a9011b21b595"
-  integrity sha512-dVLVM2iJBK95reo2MBpTtns10307NabQ38h88GUFujllPOjmGA6F6G4jSiuCex558kwpS4/cp2M1hsgsOL5f5Q==
+"@jelly-swap/utils@^0.1.33":
+  version "0.1.33"
+  resolved "https://registry.yarnpkg.com/@jelly-swap/utils/-/utils-0.1.33.tgz#2eeed782786553ebc30b1f7fa45ec019082c2eb8"
+  integrity sha512-4s/zd+7GLhIFJpQSRU6BeQJrvXxJqhmO/pQEBjIN4KioZkPAlSgUWABFfts9z5Vfjb/5OSo4ntI67J+j/+7g5A==
   dependencies:
     create-hash "^1.2.0"
     moment "^2.24.0"
@@ -4355,12 +4340,12 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-ed2curve@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ed2curve/-/ed2curve-0.2.1.tgz#22e6aaa3569e3c4dbf4eefa29612ec329e58190c"
-  integrity sha1-Iuaqo1aePE2/Tu+ilhLsMp5YGQw=
+ed2curve@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ed2curve/-/ed2curve-0.3.0.tgz#322b575152a45305429d546b071823a93129a05d"
+  integrity sha512-8w2fmmq3hv9rCrcI7g9hms2pMunQr1JINfcjwR9tAyZqhtyaMN991lF/ZfHfr5tzZQ8c7y7aBgZbjfbd0fjFwQ==
   dependencies:
-    tweetnacl "0.x.x"
+    tweetnacl "1.x.x"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -9833,10 +9818,10 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-ramda@^0.26.1:
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
-  integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
+ramda@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
+  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
@@ -10762,6 +10747,11 @@ serialize-javascript@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
   integrity sha512-rs9OggEUF0V4jUSecXazOYsLfu7OGK2qIn3c7IPBiffz32XniEp/TX9Xmc9LQfK2nQ2QKHvZ2oygKUGU0lG4jQ==
+
+serialize-javascript@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-3.0.0.tgz#492e489a2d77b7b804ad391a5f5d97870952548e"
+  integrity sha512-skZcHYw2vEX4bw90nAr2iTTsz6x2SrHEnfxgKYmZlvJYBEZrvbKtobJWlQ20zczKb3bsHHXXTYt48zBA7ni9cw==
 
 serve-index@^1.9.1:
   version "1.9.1"
@@ -11789,15 +11779,15 @@ tweetnacl-auth@^1.0.1:
   dependencies:
     tweetnacl "1.x.x"
 
-tweetnacl@0.x.x, tweetnacl@^0.14.3, tweetnacl@~0.14.0:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
-  integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
-
 tweetnacl@1.x.x, tweetnacl@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.3.tgz#ac0af71680458d8a6378d0d0d050ab1407d35596"
   integrity sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==
+
+tweetnacl@^0.14.3, tweetnacl@~0.14.0:
+  version "0.14.5"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
+  integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
 type-check@~0.3.2:
   version "0.3.2"
@@ -12081,6 +12071,11 @@ uuid@^3.0.1, uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
+uuid@^7.0.0:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
+  integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
 
 v8-compile-cache@^2.0.3:
   version "2.1.0"

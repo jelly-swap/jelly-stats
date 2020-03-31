@@ -1,12 +1,7 @@
-import React, { useReducer, useEffect } from "react";
-import reducer from "./reducer";
-import {
-  loadEthWithdraws,
-  loadAeWithdraws,
-  loadEthVolume,
-  loadAeVolume
-} from "./actions";
-import VolumeContext from "./context";
+import React, { useReducer, useEffect } from 'react';
+import reducer from './reducer';
+import { loadEthWithdraws, loadAeWithdraws, loadEthVolume, loadAeVolume } from './actions';
+import VolumeContext from './context';
 
 const VolumeState = props => {
   const initialState = {
@@ -20,11 +15,9 @@ const VolumeState = props => {
   const onLoadEthWthdraws = async () => dispatch(await loadEthWithdraws());
   const onLoadAeWthdraws = async () => dispatch(await loadAeWithdraws());
 
-  const onLoadEthVolume = async withdraws =>
-    dispatch(await loadEthVolume(withdraws));
+  const onLoadEthVolume = async withdraws => dispatch(await loadEthVolume(withdraws));
 
-  const onLoadAeVolume = async withdraws =>
-    dispatch(await loadAeVolume(withdraws));
+  const onLoadAeVolume = async withdraws => dispatch(await loadAeVolume(withdraws));
 
   useEffect(() => {
     onLoadAeWthdraws();
@@ -46,6 +39,7 @@ const VolumeState = props => {
     <VolumeContext.Provider
       value={{
         ethWithdraws: state.ethWithdraws,
+        aeWithdraws: state.aeWithdraws,
         ethVolume: state.ethVolume,
         aeVolume: state.aeVolume,
 

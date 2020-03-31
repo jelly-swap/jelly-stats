@@ -14,7 +14,8 @@ export default (state, action) => {
     case AGGREGATE_TOKENS: {
       return {
         ...state,
-        tokens: { ...action.payload }
+        tokens: { ...action.payload.data },
+        totalAmountForEachToken: { ...action.payload.totalAmountForEachToken }
       };
     }
     case AGGREGATE_USDT_PRICES: {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FETCH_PROVIDERS_INFO, AGGREGATE_TOKENS, AGGREGATE_USDT_PRICES } from './types';
-import { getTotalAmountForToken, getUSDTPriceForEachNetowrk } from '../../services';
+import { getDataForEachNetwork, getUSDTPriceForEachNetowrk } from '../../services';
 
 export const fetchProvidersInfo = async () => {
   try {
@@ -18,11 +18,11 @@ export const fetchProvidersInfo = async () => {
 };
 
 export const aggregateTokens = providers => {
-  const totalLiquidityForEachToken = getTotalAmountForToken(providers);
+  const info = getDataForEachNetwork(providers);
 
   return {
     type: AGGREGATE_TOKENS,
-    payload: totalLiquidityForEachToken
+    payload: info
   };
 };
 

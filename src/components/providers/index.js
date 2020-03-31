@@ -26,7 +26,7 @@ export default () => {
 
   useEffect(() => {
     setTokenUsdtPrice(BigNumber(usdtPrices[selectedToken + '-USDT']) * BigNumber(totalTokensFromSelected).toString());
-  }, [totalTokensFromSelected, usdtPrices]);
+  }, [totalTokensFromSelected, usdtPrices, selectedToken]);
 
   useEffect(() => {
     if (!tokens) {
@@ -80,10 +80,8 @@ export default () => {
       <div className='providers slide-in-bottom'>
         <div className='selector-wrapper'>
           <span className='total total-amount'>
-            {totalTokensFromSelected === 0
-              ? `Currently we have 0 from ${selectedToken}`
-              : `Total: ${totalTokensFromSelected} ${selectedToken} - (${tokenUsdtPrice &&
-                  parseFloat(tokenUsdtPrice).toFixed(2)}$)`}
+            {`Total: ${totalTokensFromSelected} ${selectedToken} - (${tokenUsdtPrice &&
+              parseFloat(tokenUsdtPrice).toFixed(2)}$)`}
           </span>
           <Select
             options={availableTokens}
