@@ -1,7 +1,8 @@
 .container-content {
   height: 80%;
+
   .providers {
-    width: 42%;
+    width: 50%;
     margin: auto;
     margin-top: 3%;
 
@@ -30,8 +31,9 @@
       margin-top: 5rem;
 
       position: relative;
-      width: 100%;
+      width: 90%;
     }
+
     @media (max-width: 1400px) {
       .total {
         top: 70px;

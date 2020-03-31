@@ -1,118 +1,92 @@
-import React, { useContext, useState, useEffect } from 'react';
-import BigNumber from 'bignumber.js';
-import { selectorStyles } from '../../utils';
-import { formatAddress, formatTokenAmount } from '../../utils/formatAmounts';
-import Chart from '../../utils/pieChart';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
-import ProviderInfoContext from '../../context/providerInfo/context';
+import { useProviders } from '../../context/providers';
+import { useLiquidity } from '../../context/liquidity';
+
+import { ASSETS } from '../../config';
+
+import Chart, { getDataset } from '../../utils/pieChart';
+
+import { selectorStyles, safeAccess, truncateAddress } from '../../utils';
+import { toFixed } from '../../utils/math';
 
 import './styles.scss';
 
+const labels = ASSETS.map(e => ({ label: e }));
+
 export default () => {
-  const [availableTokens, setAvailableTokens] = useState(null);
-  const [chartData, setChartData] = useState(null);
+  const providers = useProviders();
+  const liquidity = useLiquidity();
+  const [chartData, setChartData] = useState({});
+
   const [selectedToken, setSelectedToken] = useState('BTC');
-  const [tokenUsdtPrice, setTokenUsdtPrice] = useState('');
-  const [totalTokensFromSelected, setTotalTokensFromSelected] = useState('');
 
-  const providerInfoContext = useContext(ProviderInfoContext);
+  const onTokenSelected = event => {
+    setSelectedToken(event.label);
+  };
 
-  const { tokens, usdtPrices } = providerInfoContext;
+  const getLiquidity = asset => {
+    const l = liquidity && liquidity[asset];
 
-  useEffect(() => {
-    setAvailableTokens(Object.keys(tokens).map(e => ({ label: e })));
-  }, [tokens]);
-
-  useEffect(() => {
-    setTokenUsdtPrice(BigNumber(usdtPrices[selectedToken + '-USDT']) * BigNumber(totalTokensFromSelected).toString());
-  }, [totalTokensFromSelected, usdtPrices, selectedToken]);
-
-  useEffect(() => {
-    if (!tokens) {
-      return;
+    if (l) {
+      return toFixed(l);
     }
 
-    setTotalTokensFromSelected(getTotalAmountForSelectedToken(tokens[selectedToken]));
+    return 0;
+  };
 
-    setChartData({
-      labels:
-        tokens[selectedToken] &&
-        tokens[selectedToken].map(
-          e => formatAddress(e.address) + ' - ' + formatTokenAmount(e.balance) + ' ' + selectedToken
-        ),
-      datasets: [
-        {
-          label: 'Liquidity',
-          data: tokens[selectedToken] && tokens[selectedToken].map(e => e.balance),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ]
-        }
-      ]
-    });
-  }, [tokens, selectedToken]);
+  useEffect(() => {
+    if (providers) {
+      const info = getInfoForAsset(providers, selectedToken);
+
+      setChartData({
+        labels: info.labels,
+        datasets: getDataset('Providers', info.data)
+      });
+    }
+  }, [providers, selectedToken]);
 
   const tooltips = {
     enabled: true,
     callbacks: {
       label: (tooltipItem, data) => {
         const { index } = tooltipItem;
-
+        const address = data.labels[index];
         const amount = data.datasets[0].data[index];
-        return `${amount} ${selectedToken}`;
+        return `${address}        ${amount} ${selectedToken}`;
       }
     }
   };
 
-  const onTokenSelected = event => {
-    setSelectedToken(event.label);
-  };
-
   return (
-    availableTokens && (
-      <div className='providers slide-in-bottom'>
-        <div className='selector-wrapper'>
-          <span className='total total-amount'>
-            {`Total: ${totalTokensFromSelected} ${selectedToken} - (${tokenUsdtPrice &&
-              parseFloat(tokenUsdtPrice).toFixed(2)}$)`}
-          </span>
-          <Select
-            options={availableTokens}
-            styles={selectorStyles()}
-            onChange={onTokenSelected}
-            placeholder={selectedToken}
-            value={selectedToken}
-          />
-        </div>
-        <Chart chartData={chartData} tooltips={tooltips} titleText='Liquidity providers by token (in token quantity)' />
+    <div className='providers slide-in-bottom'>
+      <div className='selector-wrapper'>
+        <span className='total'>{`Total: ${getLiquidity(selectedToken)} ${selectedToken}`}</span>
+        <Select
+          options={labels}
+          styles={selectorStyles()}
+          onChange={onTokenSelected}
+          placeholder={selectedToken}
+          value={selectedToken}
+        />
       </div>
-    )
+      <Chart chartData={chartData} tooltips={tooltips} titleText='Liquidity Providers By Asset' />
+    </div>
   );
 };
 
-const getTotalAmountForSelectedToken = selectedToken => {
-  if (!selectedToken) {
-    return;
-  }
+const getInfoForAsset = (info, asset) => {
+  const labels = [];
+  const data = [];
+  Object.values(info).forEach(provider => {
+    const p = safeAccess(provider, ['balances', asset]);
+    if (p) {
+      const label = `${truncateAddress(p.address, 8)}`;
+      labels.push(label);
+      data.push(toFixed(p.balance));
+    }
+  });
 
-  const balances = selectedToken.map(e => e.balance);
-
-  if (!balances.length) {
-    return 0;
-  }
-
-  return parseFloat(
-    balances.reduce((acc, next) =>
-      BigNumber(acc)
-        .plus(BigNumber(next))
-        .toString()
-    )
-  ).toFixed(4);
+  return { labels, data };
 };

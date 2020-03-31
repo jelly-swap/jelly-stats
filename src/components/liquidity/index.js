@@ -1,50 +1,67 @@
-import React, { useContext, useState, useEffect } from 'react';
-import ProviderInfoContext from '../../context/providerInfo/context';
-import Chart from '../../utils/pieChart';
+import React, { useState, useEffect, useCallback } from 'react';
+
+import Chart, { getDataset } from '../../utils/pieChart';
+
+import { useAllPrices } from '../../context/price';
+import { useLiquidity } from '../../context/liquidity';
+
+import { ASSETS } from '../../config';
+
+import { toFixed } from '../../utils/math';
+
 import './style.scss';
-import { calculateTotalAmountUSDTForAllTokens } from '../../utils/helpers';
-import { formatUSDTAmount } from '../../utils/formatAmounts';
 
 export default () => {
-  const providerInfoContext = useContext(ProviderInfoContext);
-  const { usdtPrices, totalAmountForEachToken } = providerInfoContext;
+  const prices = useAllPrices();
+  const liquidity = useLiquidity();
 
-  const [totalPriceUSDT, setTotalPriceUSDT] = useState(0);
-  const [priceForEachUSDT, setPriceForEachUSDT] = useState(Object.values(usdtPrices));
-  const [chartData, setChartData] = useState();
+  const [liquidityInUsd, setLiquidityInUsd] = useState({});
+  const [totalLiquidity, setTotalLiquidity] = useState(0);
 
-  useEffect(() => {
-    if ((usdtPrices, totalAmountForEachToken)) {
-      const { totalAmount, totalUSDTForEachToken } = calculateTotalAmountUSDTForAllTokens(
-        usdtPrices,
-        totalAmountForEachToken
-      );
-
-      setTotalPriceUSDT(totalAmount);
-      setPriceForEachUSDT(totalUSDTForEachToken);
-    }
-  }, [usdtPrices, totalAmountForEachToken]);
+  const [chartData, setChartData] = useState({});
 
   useEffect(() => {
-    setChartData({
-      labels: Object.entries(priceForEachUSDT).map(([k, v]) => k.split('-')[0] + ' - ' + formatUSDTAmount(v) + ' $'),
-      datasets: [
-        {
-          label: 'Liquidity',
-          data: Object.values(priceForEachUSDT),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ]
-        }
-      ]
+    const _liquidityInUsd = {};
+    let _totalLiquidity = 0;
+    ASSETS.forEach(n => {
+      if (prices && liquidity) {
+        const p = prices[n];
+        const l = liquidity[n] || 0;
+
+        _liquidityInUsd[n] = l * p;
+        _totalLiquidity += _liquidityInUsd[n] || 0;
+      }
     });
-  }, [priceForEachUSDT]);
+
+    setLiquidityInUsd(_liquidityInUsd);
+    setTotalLiquidity(_totalLiquidity);
+  }, [prices, liquidity]);
+
+  const getLabels = useCallback(() => {
+    const result = [];
+
+    ASSETS.forEach(n => {
+      const p = prices[n];
+      const l = liquidity[n] || 0;
+
+      if (p) {
+        const inUsd = liquidityInUsd[n];
+        const label = `${n} - ${toFixed(l)} ($${toFixed(inUsd)})`;
+        result.push(label);
+      }
+    });
+
+    return result;
+  }, [prices, liquidity, liquidityInUsd]);
+
+  useEffect(() => {
+    if (liquidity && prices) {
+      setChartData({
+        labels: getLabels(),
+        datasets: getDataset('Liquidity', Object.values(liquidityInUsd))
+      });
+    }
+  }, [liquidity, prices, getLabels, liquidityInUsd]);
 
   const tooltips = {
     enabled: true,
@@ -58,9 +75,9 @@ export default () => {
     }
   };
 
-  return totalAmountForEachToken ? (
+  return prices ? (
     <div className='liquidity slide-in-bottom'>
-      <span className='total'>Total: {totalPriceUSDT} $</span>
+      <span className='total'>Total Liquidity: ${toFixed(totalLiquidity)}</span>
       <Chart chartData={chartData} titleText='Liquidity value (in USD)' tooltips={tooltips} />
     </div>
   ) : null;

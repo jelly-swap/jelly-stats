@@ -1,11 +1,11 @@
-import React from "react";
-import { formatDisplayNum } from "../../utils";
+import React from 'react';
+import { toFixed } from '../../utils/math';
 
-export default ({ network, priceToUSD }) => {
-  return priceToUSD ? (
-    <div className="card">
-      <span className="price">{formatDisplayNum(priceToUSD)} $</span>
-      <span className="network">{network}</span>
+export default ({ network, price }) => {
+  return price ? (
+    <div className='card'>
+      <span className='network'>{network}</span>
+      <span className='price'>{toFixed(price)} $</span>
     </div>
   ) : null;
 };

@@ -1,6 +1,7 @@
 .dashboard {
   display: flex;
   justify-content: center;
+
   .card-container {
     padding-top: 3rem;
     display: flex;
@@ -14,7 +15,6 @@
       flex-direction: column;
       padding: 1.5rem;
       text-align: center;
-      // border: 1px solid #fcfcfc;
       width: 200px;
       height: 70px;
       align-items: center;
@@ -32,12 +32,14 @@
       span {
         color: #fcfcfc;
 
-        &.price {
+        &.network {
           font-size: 32px;
           font-weight: bold;
+          padding: 10px;
         }
-        &.network {
-          font-size: 14px;
+
+        &.price {
+          font-size: 18px;
         }
       }
     }
@@ -49,6 +51,7 @@
     -webkit-transform: scale(1);
     transform: scale(1);
   }
+
   100% {
     -webkit-transform: scale(1.125);
     transform: scale(1.125);

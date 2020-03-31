@@ -1,26 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
-import ProviderInfoContext from '../../context/providerInfo/context';
+import React from 'react';
 
 import Card from './Card';
 
 import './style.scss';
+import { useAllPrices } from '../../context/price';
 
 export default () => {
-  const providerInfoContext = useContext(ProviderInfoContext);
-  const { usdtPrices } = providerInfoContext;
-  const [prices, setPrices] = useState(null);
+  const allPrices = useAllPrices();
 
-  useEffect(() => {
-    if (Object.values(usdtPrices).some(x => x.length)) {
-      setPrices(usdtPrices);
-    }
-  }, [usdtPrices]);
-
-  return prices ? (
+  return allPrices ? (
     <div className='dashboard slide-in-bottom'>
       <div className='card-container'>
-        {Object.entries(prices).map(([network, amount]) => {
-          return <Card key={network} priceToUSD={amount} network={network.split('-')[0]} />;
+        {Object.keys(allPrices).map(n => {
+          return <Card key={n} price={allPrices[n] || 0} network={n} />;
         })}
       </div>
     </div>

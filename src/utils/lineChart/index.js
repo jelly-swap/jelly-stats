@@ -1,9 +1,9 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
+import React from 'react';
+import { Line } from 'react-chartjs-2';
 
 export default ({ chartData, titleText, tooltips }) => {
   return (
-    <div className="chart">
+    <div className='chart'>
       <Line
         data={chartData}
         options={{
@@ -12,9 +12,9 @@ export default ({ chartData, titleText, tooltips }) => {
           title: {
             display: true,
             text: titleText,
-            fontColor: "#fcfcfc",
-            fontSize: "18",
-            padding: "15"
+            fontColor: '#fcfcfc',
+            fontSize: '18',
+            padding: '15'
           },
 
           tooltips: {
@@ -28,19 +28,19 @@ export default ({ chartData, titleText, tooltips }) => {
           scales: {
             xAxes: [
               {
-                type: "time",
+                type: 'time',
                 time: {
-                  unit: "day"
+                  unit: 'day'
                 },
                 ticks: {
-                  fontColor: "#fcfcfc"
+                  fontColor: '#fcfcfc'
                 }
               }
             ],
             yAxes: [
               {
                 ticks: {
-                  fontColor: "#fcfcfc"
+                  fontColor: '#fcfcfc'
                 }
               }
             ]
