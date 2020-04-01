@@ -4,6 +4,7 @@ import { safeAccess } from '../../utils';
 import { ASSETS } from '../../config';
 
 import { getPrices } from './actions';
+import { FIX_PRICE, calculatePriceBasedOn } from './utils';
 
 const UPDATE = 'UPDATE';
 
@@ -25,6 +26,14 @@ function reducer(state, { type, payload }) {
 
         if (price) {
           result[n] = price;
+        }
+      });
+
+      Object.keys(FIX_PRICE).forEach(pair => {
+        console.log(pair);
+        if (!result[pair]) {
+          const fix = FIX_PRICE[pair];
+          result[pair] = calculatePriceBasedOn(prices, fix.first, fix.second);
         }
       });
 
