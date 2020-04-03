@@ -28,6 +28,11 @@ export default () => {
             Providers
           </NavLink>
         </li>
+        <li>
+          <NavLink activeClassName='selected' to='/history'>
+            History
+          </NavLink>
+        </li>
         {/* <li>
           <NavLink activeClassName="selected" to="/volume">
             Volume
