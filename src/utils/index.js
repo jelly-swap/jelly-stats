@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 export const safeAccess = (object, path) => {
   return object
     ? path.reduce(
@@ -11,7 +13,7 @@ export const truncateAddress = (addr, num = 6) => {
   return addr.substring(0, num) + '...' + addr.substring(addr.length - num);
 };
 
-export const openLink = url => event => {
+export const openLink = (url) => (event) => {
   event.preventDefault();
   const win = window.open(url, '_blank');
   win.focus();
@@ -19,10 +21,16 @@ export const openLink = url => event => {
 
 export const selectorStyles = () => {
   return {
-    container: provided => ({
+    container: (provided) => ({
       ...provided,
       width: '30%',
-      marginRight: '9%'
-    })
+      marginRight: '9%',
+    }),
   };
 };
+export function formatDate(time, format = 'Do MMM YYYY h:mm') {
+  const timeZone = moment.tz.guess();
+  return moment(time * 1000)
+    .tz(timeZone)
+    .format(format);
+}

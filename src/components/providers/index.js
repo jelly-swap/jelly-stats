@@ -13,7 +13,7 @@ import { toFixed } from '../../utils/math';
 
 import './styles.scss';
 
-const labels = ASSETS.map(e => ({ label: e }));
+const labels = ASSETS.map((e) => ({ label: e }));
 
 export default () => {
   const providers = useProviders();
@@ -22,11 +22,11 @@ export default () => {
 
   const [selectedToken, setSelectedToken] = useState('BTC');
 
-  const onTokenSelected = event => {
+  const onTokenSelected = (event) => {
     setSelectedToken(event.label);
   };
 
-  const getLiquidity = asset => {
+  const getLiquidity = (asset) => {
     const l = liquidity && liquidity[asset];
 
     if (l) {
@@ -42,7 +42,7 @@ export default () => {
 
       setChartData({
         labels: info.labels,
-        datasets: getDataset('Providers', info.data)
+        datasets: getDataset('Providers', info.data),
       });
     }
   }, [providers, selectedToken]);
@@ -55,10 +55,9 @@ export default () => {
         const address = data.labels[index];
         const amount = data.datasets[0].data[index];
         return `${address}        ${amount} ${selectedToken}`;
-      }
-    }
+      },
+    },
   };
-
   return (
     <div className='providers slide-in-bottom'>
       <div className='selector-wrapper'>
@@ -79,7 +78,7 @@ export default () => {
 const getInfoForAsset = (info, asset) => {
   const labels = [];
   const data = [];
-  Object.values(info).forEach(provider => {
+  Object.values(info).forEach((provider) => {
     const p = safeAccess(provider, ['balances', asset]);
     if (p) {
       const label = `${truncateAddress(p.address, 8)}`;
