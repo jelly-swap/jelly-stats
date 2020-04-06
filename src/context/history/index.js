@@ -3,6 +3,7 @@ import React, { createContext, useContext, useReducer, useMemo, useCallback, use
 import { safeAccess } from '../../utils';
 
 import { getHistory } from './actions';
+import { TIMESTAMP_FORMAT } from '../../config';
 
 const UPDATE = 'UPDATE';
 
@@ -15,15 +16,26 @@ function useHistoryContext() {
 function reducer(state, { type, payload }) {
   switch (type) {
     case UPDATE: {
-      const swaps = payload;
+      let swaps = payload;
+
+      swaps = swaps.map((s) => {
+        if (TIMESTAMP_FORMAT[s.network]) {
+          s.expiration = s.expiration / 1000;
+        }
+        return s;
+      });
+
+      swaps = swaps.sort((a, b) => {
+        return b.expiration - a.expiration;
+      });
 
       return {
         ...state,
-        swaps
+        swaps,
       };
     }
     default: {
-      throw Error(`Unexpected action type in LiquidityContext reducer: '${type}'.`);
+      throw Error(`Unexpected action type in HistoryContext reducer: '${type}'.`);
     }
   }
 }
@@ -31,13 +43,13 @@ function reducer(state, { type, payload }) {
 export default function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, {});
 
-  const update = useCallback(swaps => {
+  const update = useCallback((swaps) => {
     dispatch({ type: UPDATE, payload: swaps });
   }, []);
 
   useEffect(() => {
     function get() {
-      getHistory().then(swaps => {
+      getHistory().then((swaps) => {
         update(swaps);
       });
     }
@@ -51,7 +63,7 @@ export default function Provider({ children }) {
       value={useMemo(() => {
         return {
           state,
-          update
+          update,
         };
       }, [state, update])}
     >

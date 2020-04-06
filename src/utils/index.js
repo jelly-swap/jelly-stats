@@ -28,14 +28,9 @@ export const selectorStyles = () => {
     }),
   };
 };
-export function formatDate(time, unix = true, format = 'Do MMM YYYY h:mm') {
+export function formatDate(time, format = 'Do MMM YYYY h:mm') {
   const timeZone = moment.tz.guess();
-
-  if (unix) {
-    return moment(time * 1000)
-      .tz(timeZone)
-      .format(format);
-  }
-
-  return moment(Number(time)).tz(timeZone).format(format);
+  return moment(time * 1000)
+    .tz(timeZone)
+    .format(format);
 }

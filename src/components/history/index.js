@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTable, usePagination } from 'react-table';
 import Select from 'react-select';
 
-import EXPLORERS, { convertInputAmount } from './utils';
+import { PARSE_AMOUNT, EXPLORERS } from '../../config';
 import { useSwaps } from '../../context/history/';
 
 import { selectorStyles, truncateAddress, formatDate } from '../../utils';
@@ -45,8 +45,10 @@ export default () => {
   const {
     getTableBodyProps,
     prepareRow,
-    page, // Instead of using 'rows', we'll use page,
+
+    // Instead of using 'rows', we'll use page,
     // which has only the rows for the active page
+    page,
 
     // pagination props
     canPreviousPage,
@@ -78,10 +80,10 @@ export default () => {
           <tr>
             <>
               <th>Pair</th>
-              <th>Sender</th>
-              <th>Receiver</th>
-              <th>InputAmount</th>
-              <th>Date</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Value</th>
+              <th>Expiration</th>
               <th>TxHash</th>
             </>
           </tr>
@@ -95,7 +97,7 @@ export default () => {
             const receiver = row.cells[3].value;
             const date = formatDate(row.cells[4].value);
             const txHash = row.cells[5].value;
-            const inputAmount = convertInputAmount[network](row.cells[6].value);
+            const inputAmount = PARSE_AMOUNT[network](row.cells[6].value);
 
             return (
               <tr key={i}>
