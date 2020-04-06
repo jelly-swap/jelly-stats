@@ -1,50 +1,49 @@
 import React, { useMemo } from 'react';
+import { useTable, usePagination } from 'react-table';
+import Select from 'react-select';
 
-import { useTable, useGroupBy, useFilters, useSortBy, useExpanded, usePagination } from 'react-table';
-
+import EXPLORERS, { convertInputAmount } from './utils';
 import { useSwaps } from '../../context/history/';
 
+import { selectorStyles, truncateAddress, formatDate } from '../../utils';
+
 import './style.scss';
+
+const selecctorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
 
 export default () => {
   const swaps = useSwaps() || [];
 
-  const data = React.useMemo(() => swaps, [swaps]);
+  const data = useMemo(() => swaps, [swaps]);
 
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
-        Header: 'InputNetwork',
-        accessor: 'network'
+        accessor: 'network',
       },
       {
-        Header: 'OutputNetwork',
-        accessor: 'outputNetwork'
+        accessor: 'outputNetwork',
       },
       {
-        Header: 'Sender',
-        accessor: 'sender'
+        accessor: 'sender',
       },
       {
-        Header: 'Receiver',
-        accessor: 'receiver'
+        accessor: 'receiver',
       },
       {
-        Header: 'Data',
-        accessor: 'createdAt'
+        accessor: 'expiration',
       },
       {
-        Header: 'TxHash',
-        accessor: 'transactionHash'
-      }
+        accessor: 'transactionHash',
+      },
+      {
+        accessor: 'inputAmount',
+      },
     ],
     []
   );
   const {
-    getTableProps,
     getTableBodyProps,
-    headerGroups,
-    rows,
     prepareRow,
     page, // Instead of using 'rows', we'll use page,
     // which has only the rows for the active page
@@ -58,39 +57,58 @@ export default () => {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize }
+    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 2 }
     },
     usePagination
   );
 
-  console.log(swaps, '    7');
+  const cutTxHash = (txHash) => {
+    return txHash.substr(0, 12) + '...';
+  };
+
   return (
-    <div className='history-wrapper'>
+    <div className='history-wrapper slide-in-bottom'>
       {' '}
-      <table {...getTableProps()}>
+      <table>
         <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
+          <tr>
+            <>
+              <th>Pair</th>
+              <th>Sender</th>
+              <th>Receiver</th>
+              <th>InputAmount</th>
+              <th>Date</th>
+              <th>TxHash</th>
+            </>
+          </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
+            const network = row.cells[0].value;
+            const pair = `${row.cells[0].value} - ${row.cells[1].value}`;
+            const sender = row.cells[2].value;
+            const receiver = row.cells[3].value;
+            const date = formatDate(row.cells[4].value);
+            const txHash = row.cells[5].value;
+            const inputAmount = convertInputAmount[network](row.cells[6].value);
+
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  console.log(cell);
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                })}
+              <tr key={i}>
+                <td>{pair}</td>
+                <td title={sender}>{truncateAddress(sender)}</td>
+                <td title={sender}>{truncateAddress(receiver)}</td>
+                <td>{`${inputAmount} ${network}`}</td>
+                <td>{date}</td>
+                <td>
+                  <a href={EXPLORERS[network] + txHash} target='_blank' rel='noopener noreferrer'>
+                    {cutTxHash(txHash)}
+                  </a>
+                </td>
               </tr>
             );
           })}
@@ -115,30 +133,15 @@ export default () => {
             {pageIndex + 1} of {pageOptions.length}
           </strong>{' '}
         </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type='number'
-            defaultValue={pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
-            }}
-            style={{ width: '100px' }}
+        <div className='selector-container'>
+          <Select
+            options={selecctorOptions}
+            styles={selectorStyles()}
+            onChange={(e) => setPageSize(e.label)}
+            placeholder={`Show ${pageSize}`}
+            value={pageSize}
           />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+        </div>
       </div>
     </div>
   );
