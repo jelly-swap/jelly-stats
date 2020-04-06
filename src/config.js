@@ -35,12 +35,14 @@ const assets = {
   },
 };
 
-export const ASSETS = Object.values(assets).reduce((arr, item) => {
+const assetsArray = Object.values(assets);
+
+export const ASSETS = assetsArray.reduce((arr, item) => {
   arr.push(item.name);
   return arr;
 }, []);
 
-export const PARSE_AMOUNT = Object.values(assets).reduce((obj, item) => {
+export const PARSE_AMOUNT = assetsArray.reduce((obj, item) => {
   return {
     ...obj,
     [item.name]: (inputAmount) => {
@@ -49,14 +51,14 @@ export const PARSE_AMOUNT = Object.values(assets).reduce((obj, item) => {
   };
 }, {});
 
-export const EXPLORERS = Object.values(assets).reduce((obj, item) => {
+export const EXPLORERS = assetsArray.reduce((obj, item) => {
   return {
     ...obj,
     [item.name]: item.explorer,
   };
 }, {});
 
-export const TIMESTAMP_FORMAT = Object.values(assets).reduce((obj, item) => {
+export const TIMESTAMP_FORMAT = assetsArray.reduce((obj, item) => {
   return {
     ...obj,
     [item.name]: item.timestampMs,
