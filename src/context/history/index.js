@@ -18,6 +18,8 @@ function reducer(state, { type, payload }) {
     case UPDATE: {
       let swaps = payload;
 
+      if (!swaps) return;
+
       swaps = swaps.map((s) => {
         if (TIMESTAMP_FORMAT[s.network]) {
           s.expiration = s.expiration / 1000;
