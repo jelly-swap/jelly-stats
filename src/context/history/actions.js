@@ -6,7 +6,7 @@ export const getHistory = async () => {
     https://spacejelly.network/candy/api/v1/swaps/get`);
     return res.data;
   } catch (error) {
-    console.log('LIQUIDITY_ERR: ', error);
+    console.log('HISTORY_ERR: ', error);
     return {};
   }
 };
