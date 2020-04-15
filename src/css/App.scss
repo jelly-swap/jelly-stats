@@ -1,7 +1,8 @@
-@import "animations.scss";
+@import 'animations.scss';
 
 body {
-  background-image: -webkit-radial-gradient(#02497C 2%, #00053C 71%);
+  background-image: -webkit-radial-gradient(#02497c 2%, #00053c 71%);
+  font-family: 'Roboto', sans-serif;
 
   .App {
     height: 98vh;
