@@ -33,11 +33,11 @@ export default () => {
             History
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink activeClassName="selected" to="/volume">
+        <li>
+          <NavLink activeClassName='selected' to='/volume'>
             Volume
           </NavLink>
-        </li> */}
+        </li>
       </ul>
     </div>
   );

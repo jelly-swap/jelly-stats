@@ -1,0 +1,16 @@
+.volume-wrapper {
+  width: 50%;
+  margin: auto;
+  margin-top: 3%;
+
+  .volume-top {
+    .volume-selector {
+      float: right;
+      width: 150px;
+      > div {
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
+}
