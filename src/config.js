@@ -28,6 +28,11 @@ const assets = {
     decimals: 8,
     explorer: 'https://etherscan.io/tx/',
   },
+  'BTC++': {
+    name: 'BTC++',
+    decimals: 18,
+    explorer: 'https://etherscan.io/tx/',
+  },
   USDC: {
     name: 'USDC',
     decimals: 6,
