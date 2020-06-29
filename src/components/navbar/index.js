@@ -33,11 +33,11 @@ export default () => {
             History
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink activeClassName="selected" to="/volume">
-            Volume
+        <li>
+          <NavLink activeClassName='selected' to='/rewards'>
+            Rewards
           </NavLink>
-        </li> */}
+        </li>
       </ul>
     </div>
   );
