@@ -59,7 +59,7 @@ export default () => {
   );
 
   return (
-    <div className='history-wrapper slide-in-bottom'>
+    <div className='reward-wrapper slide-in-bottom'>
       {' '}
       <table>
         <thead>

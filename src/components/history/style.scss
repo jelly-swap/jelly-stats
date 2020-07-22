@@ -9,7 +9,7 @@
   margin-top: 3%;
 
   table {
-    width: 70%;
+    width: 65%;
     border-radius: 10px;
     margin-right: 15px;
     background: #002b60;
@@ -17,9 +17,18 @@
     color: white;
     padding: 13px;
 
+    thead {
+      tr {
+        th {
+          padding-bottom: 20px;
+        }
+      }
+    }
+
     tbody {
       tr {
         td {
+          padding-bottom: 20px;
           text-align: center;
 
           a {
