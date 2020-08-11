@@ -31,6 +31,24 @@
           padding-bottom: 20px;
           text-align: center;
 
+          span {
+            &.arrow {
+              width: 29px;
+              display: block;
+              height: 15px;
+
+              img {
+                width: 20px;
+              }
+            }
+
+            &.expanded {
+              img {
+                transform: rotate(90deg);
+              }
+            }
+          }
+
           a {
             text-decoration: none;
             color: wheat;

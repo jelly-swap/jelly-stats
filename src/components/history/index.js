@@ -9,6 +9,8 @@ import { useSwaps } from '../../context/history/';
 
 import { selectorStyles, truncateAddress, formatDate, cutTxHash } from '../../utils';
 
+import Arrow from '../../css/images/arrow.svg';
+
 import './style.scss';
 
 const selecctorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
@@ -23,7 +25,11 @@ export default () => {
       {
         Header: () => null,
         id: 'expander', // 'id' is required
-        Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? '👇' : '👉'}</span>,
+        Cell: ({ row }) => (
+          <span className={row.isExpanded ? 'arrow expanded' : 'arrow'}>
+            <img src={Arrow} alt='arrow' />
+          </span>
+        ),
       },
       {
         accessor: 'network',
@@ -108,7 +114,7 @@ export default () => {
 
             return (
               <React.Fragment key={i}>
-                <tr>
+                <tr {...row.getToggleRowExpandedProps()}>
                   <td>{expandedComponent}</td>
                   <td>{pair}</td>
                   <td title={sender}>{truncateAddress(sender)}</td>
