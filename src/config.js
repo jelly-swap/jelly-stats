@@ -71,3 +71,11 @@ export const TIMESTAMP_FORMAT = assetsArray.reduce((obj, item) => {
 }, {});
 
 export const BASE_URL = 'https://network.jelly.market/api/v1';
+
+export const STATUS = {
+  0: 'INVALID', // Uninitialized  swap -> can go to ACTIVE
+  1: 'ACTIVE', // Active swap -> can go to WITHDRAWN or EXPIRED
+  2: 'REFUNDED', // Swap is refunded -> final state.
+  3: 'WITHDRAWN', // Swap is withdrawn -> final state.
+  4: 'EXPIRED', // Swap is expired -> can go to REFUNDED
+};

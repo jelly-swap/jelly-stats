@@ -2,19 +2,16 @@ import React, { useMemo } from 'react';
 import { useTable, usePagination, useExpanded } from 'react-table';
 import Select from 'react-select';
 
+import RowSubComponent from './RowSubComponent';
+
 import { PARSE_AMOUNT, EXPLORERS } from '../../config';
 import { useSwaps } from '../../context/history/';
 
-import { selectorStyles, truncateAddress, formatDate } from '../../utils';
+import { selectorStyles, truncateAddress, formatDate, cutTxHash } from '../../utils';
 
 import './style.scss';
 
 const selecctorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
-
-const renderRowSubComponent = (row) => {
-  const { network } = row.original;
-  return <div>{network}</div>;
-};
 
 export default () => {
   const swaps = useSwaps() || [];
@@ -80,10 +77,6 @@ export default () => {
     usePagination
   );
 
-  const cutTxHash = (txHash) => {
-    return txHash.substr(0, 12) + '...';
-  };
-
   return (
     <div className='history-wrapper slide-in-bottom'>
       {' '}
@@ -91,7 +84,7 @@ export default () => {
         <thead>
           <tr>
             <>
-              <th>IsExpanded</th>
+              <th></th>
               <th>Pair</th>
               <th>From</th>
               <th>To</th>
@@ -130,7 +123,9 @@ export default () => {
                 </tr>
                 {row.isExpanded && (
                   <tr>
-                    <td colSpan={visibleColumns.length}>{renderRowSubComponent(row)}</td>
+                    <td className='more-info' colSpan={visibleColumns.length}>
+                      <RowSubComponent row={row} />
+                    </td>
                   </tr>
                 )}
               </React.Fragment>
