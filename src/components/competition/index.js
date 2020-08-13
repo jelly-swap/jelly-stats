@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useRef } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useTable, usePagination } from 'react-table';
 import Select from 'react-select';
 
@@ -12,17 +12,13 @@ import { selectorStyles } from '../../utils';
 export default () => {
   const allSwaps = useSwaps() || [];
   const prices = useAllPrices();
-  const refSwaps = useRef(0);
-  const refPrice = useRef({});
+
   const [competitionResult, setCompetitionResult] = useState([]);
 
   useEffect(() => {
-    if (refSwaps.current !== allSwaps.length || JSON.stringify(refPrice.current) !== JSON.stringify(prices)) {
-      refSwaps.current = allSwaps.length;
-      refPrice.current = prices;
+    if (!allSwaps.length || !prices) return;
 
-      setCompetitionResult(calCompetitionResults(allSwaps, prices));
-    }
+    setCompetitionResult(calCompetitionResults(allSwaps, prices));
   }, [allSwaps, prices]);
 
   const data = useMemo(() => competitionResult, [competitionResult]);
