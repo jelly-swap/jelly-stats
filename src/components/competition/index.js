@@ -18,7 +18,7 @@ export default () => {
   useEffect(() => {
     if (!allSwaps.length || !prices) return;
 
-    setCompetitionResult(calCompetitionResults(allSwaps, prices));
+    setCompetitionResult(() => calCompetitionResults(allSwaps, prices));
   }, [allSwaps, prices]);
 
   const data = useMemo(() => competitionResult, [competitionResult]);
