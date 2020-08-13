@@ -7,8 +7,6 @@ import { useSwaps } from '../../context/history/';
 
 import { selectorStyles, truncateAddress, formatDate } from '../../utils';
 
-import './style.scss';
-
 export default () => {
   const swaps = useSwaps() || [];
 
@@ -71,7 +69,7 @@ export default () => {
   };
 
   return (
-    <div className='history-wrapper slide-in-bottom'>
+    <div className='table-wrapper slide-in-bottom'>
       {' '}
       <table>
         <thead>

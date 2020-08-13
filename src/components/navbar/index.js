@@ -40,7 +40,7 @@ export default () => {
         </li>
         <li>
           <NavLink activeClassName='selected' to='/competition'>
-            Competititon
+            Competition
           </NavLink>
         </li>
       </ul>

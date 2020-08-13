@@ -9,6 +9,8 @@ import { selectorOptions } from '../../config';
 import { calCompetitionResults } from './utils';
 import { selectorStyles } from '../../utils';
 
+import './style.scss';
+
 export default () => {
   const allSwaps = useSwaps() || [];
   const prices = useAllPrices();
@@ -62,14 +64,14 @@ export default () => {
   );
 
   return (
-    <div className='history-wrapper slide-in-bottom'>
+    <div id='competition' className='table-wrapper slide-in-bottom'>
       {' '}
       <table>
         <thead>
           <tr>
             <>
               <th>Address</th>
-              <th>Address Volume</th>
+              <th>Volume</th>
             </>
           </tr>
         </thead>
@@ -78,12 +80,12 @@ export default () => {
             prepareRow(row);
 
             const address = row.original.address;
-            const addressVolume = row.original.addressVolume;
+            const volume = row.original.addressVolume;
 
             return (
               <tr key={i}>
                 <td>{address}</td>
-                <td>${addressVolume} </td>
+                <td className='volume'>${volume} </td>
               </tr>
             );
           })}

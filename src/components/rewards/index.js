@@ -6,8 +6,6 @@ import { useLp } from '../../context/rewards';
 
 import { selectorStyles } from '../../utils';
 
-import './style.scss';
-
 const selecctorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
 
 export default () => {
@@ -59,7 +57,7 @@ export default () => {
   );
 
   return (
-    <div className='reward-wrapper slide-in-bottom'>
+    <div className='table-wrapper slide-in-bottom'>
       {' '}
       <table>
         <thead>
@@ -75,7 +73,7 @@ export default () => {
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
-            console.log(row);
+
             const date = row.values.date;
             const name = row.values.name;
             const liquidity = row.values.usd.toFixed(2);
