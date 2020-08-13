@@ -13,6 +13,7 @@ import Liquidity from './components/liquidity';
 import Providers from './components/providers';
 import History from './components/history';
 import Rewards from './components/rewards';
+import Competition from './components/competition';
 
 import './css/App.scss';
 import PriceProvider, { Updater as PriceUpdater } from './context/price';
@@ -51,6 +52,7 @@ const App = () => {
                       <Route path='/providers' component={Providers} />
                       <Route path='/history' component={History} />
                       <Route path='/rewards' component={Rewards} />
+                      <Route path='/competition' component={Competition} />
                     </Switch>
                     <img src={Yellow} alt='help' style={{ right: '27%', top: '90%' }} />
                     <img src={Purple} alt='help' style={{ right: '-4%', bottom: '15%' }} />

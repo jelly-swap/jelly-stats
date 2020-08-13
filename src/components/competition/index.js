@@ -1,45 +1,44 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { useTable, usePagination } from 'react-table';
 import Select from 'react-select';
 
-import { PARSE_AMOUNT, EXPLORERS, selectorOptions } from '../../config';
-import { useSwaps } from '../../context/history/';
+import { useSwaps } from '../../context/history';
+import { useAllPrices } from '../../context/price';
 
-import { selectorStyles, truncateAddress, formatDate } from '../../utils';
-
-import './style.scss';
+import { selectorOptions } from '../../config';
+import { calCompetitionResults } from './utils';
+import { selectorStyles } from '../../utils';
 
 export default () => {
-  const swaps = useSwaps() || [];
+  const allSwaps = useSwaps() || [];
+  const prices = useAllPrices();
+  const refSwaps = useRef(0);
+  const refPrice = useRef({});
+  const [competitionResult, setCompetitionResult] = useState([]);
 
-  const data = useMemo(() => swaps, [swaps]);
+  useEffect(() => {
+    if (refSwaps.current !== allSwaps.length || JSON.stringify(refPrice.current) !== JSON.stringify(prices)) {
+      refSwaps.current = allSwaps.length;
+      refPrice.current = prices;
+
+      setCompetitionResult(calCompetitionResults(allSwaps, prices));
+    }
+  }, [allSwaps, prices]);
+
+  const data = useMemo(() => competitionResult, [competitionResult]);
 
   const columns = useMemo(
     () => [
       {
-        accessor: 'network',
+        accessor: 'address',
       },
       {
-        accessor: 'outputNetwork',
-      },
-      {
-        accessor: 'sender',
-      },
-      {
-        accessor: 'receiver',
-      },
-      {
-        accessor: 'expiration',
-      },
-      {
-        accessor: 'transactionHash',
-      },
-      {
-        accessor: 'inputAmount',
+        accessor: 'addressVolume',
       },
     ],
     []
   );
+
   const {
     getTableBodyProps,
     prepareRow,
@@ -66,10 +65,6 @@ export default () => {
     usePagination
   );
 
-  const cutTxHash = (txHash) => {
-    return txHash.substr(0, 12) + '...';
-  };
-
   return (
     <div className='history-wrapper slide-in-bottom'>
       {' '}
@@ -77,38 +72,22 @@ export default () => {
         <thead>
           <tr>
             <>
-              <th>Pair</th>
-              <th>From</th>
-              <th>To</th>
-              <th>Value</th>
-              <th>Expiration</th>
-              <th>TxHash</th>
+              <th>Address</th>
+              <th>Address Volume</th>
             </>
           </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
-            const network = row.cells[0].value;
-            const pair = `${row.cells[0].value} - ${row.cells[1].value}`;
-            const sender = row.cells[2].value;
-            const receiver = row.cells[3].value;
-            const date = formatDate(row.cells[4].value);
-            const txHash = row.cells[5].value;
-            const inputAmount = PARSE_AMOUNT[network](row.cells[6].value);
+
+            const address = row.original.address;
+            const addressVolume = row.original.addressVolume;
 
             return (
               <tr key={i}>
-                <td>{pair}</td>
-                <td title={sender}>{truncateAddress(sender)}</td>
-                <td title={sender}>{truncateAddress(receiver)}</td>
-                <td>{`${inputAmount} ${network}`}</td>
-                <td>{date}</td>
-                <td>
-                  <a href={EXPLORERS[network] + txHash} target='_blank' rel='noopener noreferrer'>
-                    {cutTxHash(txHash)}
-                  </a>
-                </td>
+                <td>{address}</td>
+                <td>${addressVolume} </td>
               </tr>
             );
           })}

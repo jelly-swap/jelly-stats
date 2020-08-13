@@ -38,6 +38,11 @@ export default () => {
             Rewards
           </NavLink>
         </li>
+        <li>
+          <NavLink activeClassName='selected' to='/competition'>
+            Competititon
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

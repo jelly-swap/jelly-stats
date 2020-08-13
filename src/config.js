@@ -63,6 +63,13 @@ export const EXPLORERS = assetsArray.reduce((obj, item) => {
   };
 }, {});
 
+export const DECIMALS = assetsArray.reduce((obj, item) => {
+  return {
+    ...obj,
+    [item.name]: item.decimals,
+  };
+}, {});
+
 export const TIMESTAMP_FORMAT = assetsArray.reduce((obj, item) => {
   return {
     ...obj,
@@ -71,3 +78,5 @@ export const TIMESTAMP_FORMAT = assetsArray.reduce((obj, item) => {
 }, {});
 
 export const BASE_URL = 'https://network.jelly.market/api/v1';
+
+export const selectorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
