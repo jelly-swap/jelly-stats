@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { PARSE_AMOUNT, EXPLORERS, STATUS } from '../../../config';
-import { formatDate, cutTxHash } from '../../../utils';
+import { PARSE_AMOUNT, EXPLORERS, STATUS, STATUS_TO_NAME } from '../../../config';
+import { formatDate } from '../../../utils';
 
 import './style.scss';
 
@@ -29,7 +29,7 @@ export default ({ row }) => {
         <span>Transaction Hash: </span>
         <span>
           <a href={EXPLORERS[network] + transactionHash} target='_blank' rel='noopener noreferrer'>
-            {cutTxHash(transactionHash)}
+            {transactionHash}
           </a>
         </span>
       </div>
@@ -38,15 +38,15 @@ export default ({ row }) => {
         <span>{STATUS[status]}</span>
       </div>
       <div>
-        <span>From Network: </span>
+        <span>Sent: </span>
         <span>
-          {network} ({inputAmount})
+          {inputAmount} {network}
         </span>
       </div>
       <div>
-        <span>To Network: </span>
+        <span>Received: </span>
         <span>
-          {outputNetwork} ({outputAmount})
+          {outputAmount} {outputNetwork}
         </span>
       </div>
       <div>
@@ -69,18 +69,10 @@ export default ({ row }) => {
 
       {completenessTransactionHash && (
         <div>
-          <span>{STATUS[status]} Tx: </span>
+          <span>{STATUS_TO_NAME[status]}: </span>
           <span>
-            <a
-              href={
-                STATUS[status] === 'REFUNDED'
-                  ? EXPLORERS[network] + completenessTransactionHash
-                  : EXPLORERS[outputNetwork] + completenessTransactionHash
-              }
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              {cutTxHash(completenessTransactionHash)}
+            <a href={EXPLORERS[network] + completenessTransactionHash} target='_blank' rel='noopener noreferrer'>
+              {completenessTransactionHash}
             </a>
           </span>
         </div>
