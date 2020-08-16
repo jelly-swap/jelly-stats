@@ -34,3 +34,7 @@ export function formatDate(time, format = 'Do MMM YYYY h:mm') {
     .tz(timeZone)
     .format(format);
 }
+
+export const cutTxHash = (txHash) => {
+  return txHash.substr(0, 12) + '...';
+};

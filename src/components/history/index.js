@@ -1,11 +1,15 @@
 import React, { useMemo } from 'react';
-import { useTable, usePagination } from 'react-table';
+import { useTable, usePagination, useExpanded } from 'react-table';
 import Select from 'react-select';
+
+import RowSubComponent from './RowSubComponent';
 
 import { PARSE_AMOUNT, EXPLORERS } from '../../config';
 import { useSwaps } from '../../context/history/';
 
-import { selectorStyles, truncateAddress, formatDate } from '../../utils';
+import { selectorStyles, truncateAddress, formatDate, cutTxHash } from '../../utils';
+
+import Arrow from '../../css/images/arrow.svg';
 
 import './style.scss';
 
@@ -18,6 +22,15 @@ export default () => {
 
   const columns = useMemo(
     () => [
+      {
+        Header: () => null,
+        id: 'expander', // 'id' is required
+        Cell: ({ row }) => (
+          <span className={row.isExpanded ? 'arrow expanded' : 'arrow'}>
+            <img src={Arrow} alt='arrow' />
+          </span>
+        ),
+      },
       {
         accessor: 'network',
       },
@@ -59,18 +72,16 @@ export default () => {
     nextPage,
     previousPage,
     setPageSize,
+    visibleColumns,
     state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
       data,
     },
+    useExpanded,
     usePagination
   );
-
-  const cutTxHash = (txHash) => {
-    return txHash.substr(0, 12) + '...';
-  };
 
   return (
     <div className='history-wrapper slide-in-bottom'>
@@ -79,6 +90,7 @@ export default () => {
         <thead>
           <tr>
             <>
+              <th></th>
               <th>Pair</th>
               <th>From</th>
               <th>To</th>
@@ -91,27 +103,38 @@ export default () => {
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
-            const network = row.cells[0].value;
-            const pair = `${row.cells[0].value} - ${row.cells[1].value}`;
-            const sender = row.cells[2].value;
-            const receiver = row.cells[3].value;
-            const date = formatDate(row.cells[4].value);
-            const txHash = row.cells[5].value;
-            const inputAmount = PARSE_AMOUNT[network](row.cells[6].value);
+            const expandedComponent = row.cells[0].render('Cell');
+            const network = row.cells[1].value;
+            const pair = `${row.cells[1].value} - ${row.cells[2].value}`;
+            const sender = row.cells[3].value;
+            const receiver = row.cells[4].value;
+            const date = formatDate(row.cells[5].value);
+            const txHash = row.cells[6].value;
+            const inputAmount = PARSE_AMOUNT[network](row.cells[7].value);
 
             return (
-              <tr key={i}>
-                <td>{pair}</td>
-                <td title={sender}>{truncateAddress(sender)}</td>
-                <td title={sender}>{truncateAddress(receiver)}</td>
-                <td>{`${inputAmount} ${network}`}</td>
-                <td>{date}</td>
-                <td>
-                  <a href={EXPLORERS[network] + txHash} target='_blank' rel='noopener noreferrer'>
-                    {cutTxHash(txHash)}
-                  </a>
-                </td>
-              </tr>
+              <React.Fragment key={i}>
+                <tr {...row.getToggleRowExpandedProps()}>
+                  <td>{expandedComponent}</td>
+                  <td>{pair}</td>
+                  <td title={sender}>{truncateAddress(sender)}</td>
+                  <td title={sender}>{truncateAddress(receiver)}</td>
+                  <td>{`${inputAmount} ${network}`}</td>
+                  <td>{date}</td>
+                  <td>
+                    <a href={EXPLORERS[network] + txHash} target='_blank' rel='noopener noreferrer'>
+                      {cutTxHash(txHash)}
+                    </a>
+                  </td>
+                </tr>
+                {row.isExpanded && (
+                  <tr>
+                    <td className='more-info' colSpan={visibleColumns.length}>
+                      <RowSubComponent row={row} />
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
             );
           })}
         </tbody>

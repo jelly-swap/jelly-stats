@@ -1,0 +1,16 @@
+.more-info {
+  div {
+    display: grid;
+    grid-template-columns: 30% 0%;
+    text-align: left;
+    margin-bottom: 7px;
+
+    span {
+      white-space: nowrap;
+    }
+  }
+
+  div > span:first-child {
+    margin-left: 25%;
+  }
+}
