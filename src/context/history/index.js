@@ -54,9 +54,7 @@ export default function Provider({ children }) {
   useEffect(() => {
     function get() {
       getHistory().then((swaps) => {
-        // Remove swaps which are made on Harmony network
-
-        update(swaps.filter((swap) => swap.network !== 'ONE'));
+        update(swaps);
       });
     }
 

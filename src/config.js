@@ -41,7 +41,7 @@ const assets = {
   ONE: {
     name: 'ONE',
     decimals: 18,
-    explorer: 'https://etherscan.io/tx/',
+    explorer: 'https://explorer.harmony.one/#/tx/',
   },
 };
 
