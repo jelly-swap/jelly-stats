@@ -75,7 +75,7 @@ export default () => {
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
-            console.log(row);
+
             const date = row.values.date;
             const name = row.values.name;
             const liquidity = row.values.usd.toFixed(2);

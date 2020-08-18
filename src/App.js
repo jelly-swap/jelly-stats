@@ -20,6 +20,11 @@ import LiquidityProvider, { Updater as LiquidityUpdater } from './context/liquid
 import ProviderContext, { Updater as ProviderUpdate } from './context/providers';
 import HistoryContext from './context/history';
 import RewardContext from './context/rewards';
+import { useWindowSize } from './hooks/useWindowSize';
+import { DEVICE_TYPES } from './constants';
+
+import logo from './css/images/logo.png';
+import { openLink } from './utils';
 
 function Updaters() {
   return (
@@ -32,6 +37,8 @@ function Updaters() {
 }
 
 const App = () => {
+  const { deviceType } = useWindowSize();
+
   return (
     <PriceProvider>
       <LiquidityProvider>
@@ -41,22 +48,33 @@ const App = () => {
               <Updaters />
               <Router>
                 <div className='App'>
-                  <div className='navbar-container'>
-                    <Navbar />
+                  <div className='logo-container'>
+                    <img src={logo} alt='jelly-logo' onClick={openLink(`https://jelly.market/`)}></img>
                   </div>
+                  {deviceType === DEVICE_TYPES.DESKTOP ? (
+                    <div className='navbar-container'>
+                      <Navbar deviceType={deviceType} />
+                    </div>
+                  ) : null}
                   <div className='container-content'>
                     <Switch>
                       <Route path='/' exact component={Dashboard} />
-                      <Route path='/liquidity' component={Liquidity} />
+                      <Route path='/liquidity' component={() => <Liquidity deviceType={deviceType} />} />
                       <Route path='/providers' component={Providers} />
-                      <Route path='/history' component={History} />
-                      <Route path='/rewards' component={Rewards} />
+                      {/*<Route path='/history' component={History} />
+                      <Route path='/rewards' component={Rewards} /> */}
                     </Switch>
                     <img src={Yellow} alt='help' style={{ right: '27%', top: '90%' }} />
                     <img src={Purple} alt='help' style={{ right: '-4%', bottom: '15%' }} />
                     <img src={Orange} alt='help' style={{ left: '-5%', bottom: '20%' }} />
                     <img src={Green} alt='help' style={{ right: '-2%', top: '-5%' }} />
                   </div>
+
+                  {deviceType === DEVICE_TYPES.MOBILE ? (
+                    <div className='navbar-container'>
+                      <Navbar deviceType={deviceType} />
+                    </div>
+                  ) : null}
                 </div>
               </Router>
             </RewardContext>

@@ -1,37 +1,53 @@
+@import '../../css/query.scss';
+
 .navbar {
-  display: flex;
-  position: relative;
-  .logo-container {
-    img {
-      position: absolute;
-      width: 80px;
-      top: 25px;
-      left: 60px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
+  width: 100%;
+  background-color: whitesmoke;
+  border-top-right-radius: 23px;
+  border-top-left-radius: 23px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  img {
+    width: 30px;
+    height: 30px;
   }
 
   ul {
-    list-style: none;
-    padding: 3rem;
     display: flex;
     justify-content: space-between;
-    width: 600px;
-    margin: 0 auto;
+    list-style-type: none;
+    padding: 0 2em;
+  }
+}
 
-    li {
-      a {
-        color: #fcfcfc;
-        font-weight: 500;
-        text-decoration: none;
-        font-size: 24px;
-        opacity: 0.5;
-        &:hover,
-        &.selected {
-          cursor: pointer;
-          opacity: 1;
+@include laptop {
+  .navbar {
+    display: flex;
+    position: relative;
+    background-color: unset;
+
+    ul {
+      list-style: none;
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      width: 600px;
+      margin: 0 auto;
+
+      li {
+        a {
+          color: #fcfcfc;
+          font-weight: 500;
+          text-decoration: none;
+          font-size: 24px;
+          opacity: 0.5;
+          &:hover,
+          &.selected {
+            cursor: pointer;
+            opacity: 1;
+          }
         }
       }
     }

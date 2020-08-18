@@ -21,7 +21,7 @@ function reducer(state, { type, payload }) {
 
       const result = {};
 
-      ASSETS.forEach(n => {
+      ASSETS.forEach((n) => {
         const price = prices[`${n}-USDT`];
 
         if (price) {
@@ -29,8 +29,7 @@ function reducer(state, { type, payload }) {
         }
       });
 
-      Object.keys(FIX_PRICE).forEach(pair => {
-        console.log(pair);
+      Object.keys(FIX_PRICE).forEach((pair) => {
         if (!result[pair]) {
           const fix = FIX_PRICE[pair];
           result[pair] = calculatePriceBasedOn(prices, fix.first, fix.second);
@@ -39,7 +38,7 @@ function reducer(state, { type, payload }) {
 
       return {
         ...state,
-        prices: result
+        prices: result,
       };
     }
     default: {
@@ -51,7 +50,7 @@ function reducer(state, { type, payload }) {
 export default function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, {});
 
-  const update = useCallback(prices => {
+  const update = useCallback((prices) => {
     dispatch({ type: UPDATE, payload: prices });
   }, []);
 
@@ -60,7 +59,7 @@ export default function Provider({ children }) {
       value={useMemo(() => {
         return {
           state,
-          update
+          update,
         };
       }, [state, update])}
     >
@@ -77,7 +76,7 @@ export function Updater() {
 
     function get() {
       if (!stale) {
-        getPrices().then(prices => {
+        getPrices().then((prices) => {
           update(prices);
         });
       }

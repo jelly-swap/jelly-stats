@@ -1,30 +1,33 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
+import { DEVICE_TYPES } from '../../constants';
 
-export default ({ chartData, titleText, tooltips }) => {
+export default ({ chartData, titleText, tooltips, deviceType }) => {
   return (
     <div className='chart'>
       <Pie
         data={chartData}
         options={{
-          responsive: true,
+          maintainAspectRatio: false,
           legend: {
-            position: 'left',
+            position: deviceType === DEVICE_TYPES.DESKTOP ? 'left' : 'top',
+            align: 'center',
+            fullWidth: true,
             labels: {
               padding: 15,
-              fontColor: '#fcfcfc'
-            }
+              fontColor: '#fcfcfc',
+            },
           },
           title: {
             display: true,
             text: titleText,
             fontColor: '#fcfcfc',
             fontSize: '18',
-            padding: '15'
+            padding: '15',
           },
           tooltips: {
-            ...tooltips
-          }
+            ...tooltips,
+          },
         }}
       />
     </div>
@@ -43,8 +46,8 @@ export const getDataset = (label, data) => {
         'rgba(75, 192, 192, 0.6)',
         'rgba(153, 102, 255, 0.6)',
         'rgba(255, 159, 64, 0.6)',
-        'rgba(255, 99, 132, 0.6)'
-      ]
-    }
+        'rgba(255, 99, 132, 0.6)',
+      ],
+    },
   ];
 };

@@ -1,0 +1,7 @@
+$laptop-screen-min: 550px;
+
+@mixin laptop {
+  @media (min-width: #{$laptop-screen-min}) {
+    @content;
+  }
+}
