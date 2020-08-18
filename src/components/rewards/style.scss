@@ -5,6 +5,7 @@
   flex-flow: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
 
   table {
     width: 100%;
@@ -16,6 +17,8 @@
     padding: 13px;
     font-size: 0.8rem;
     margin-top: 10px;
+    height: 490px;
+    overflow-y: auto;
 
     thead {
       tr {

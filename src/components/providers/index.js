@@ -68,6 +68,7 @@ export default ({ deviceType }) => {
           onChange={onTokenSelected}
           placeholder={selectedToken}
           value={selectedToken}
+          isSearchable={false}
         />
       </div>
       <Chart

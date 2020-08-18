@@ -1,98 +1,99 @@
 @import '../../css/query.scss';
 
-.container-content {
-  .history-wrapper {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
+.history-wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 
-    table {
-      width: 100%;
-      border-radius: 10px;
-      margin-right: 15px;
-      background: #002b60;
-      box-shadow: inset 20px 20px 60px #002552, inset -20px -20px 60px #00316e;
-      color: white;
-      padding: 13px;
-      font-size: 0.8rem;
+  table {
+    width: 100%;
+    border-radius: 10px;
+    margin-right: 15px;
+    background: #002b60;
+    box-shadow: inset 20px 20px 60px #002552, inset -20px -20px 60px #00316e;
+    color: white;
+    padding: 13px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    height: 490px;
+    overflow-y: auto;
 
-      thead {
-        tr {
-          th {
-            padding-bottom: 20px;
-          }
-        }
-      }
-
-      tbody {
-        tr {
-          td {
-            padding-bottom: 20px;
-            text-align: center;
-
-            span {
-              &.arrow {
-                width: 29px;
-                display: block;
-                height: 15px;
-
-                img {
-                  width: 20px;
-                }
-              }
-
-              &.expanded {
-                img {
-                  transform: rotate(90deg);
-                }
-              }
-            }
-
-            a {
-              text-decoration: none;
-              color: wheat;
-            }
-          }
+    thead {
+      tr {
+        th {
+          padding-bottom: 20px;
         }
       }
     }
 
-    .pagination {
-      margin: 0 auto;
-      width: fit-content;
-      margin-top: 13px;
-      text-align: center;
+    tbody {
+      tr {
+        td {
+          padding-bottom: 20px;
+          text-align: center;
 
-      .selector-container {
-        display: inline-block;
-        width: 117px;
-        margin-top: 10px;
-      }
-      .selector-container > div:first-child {
-        width: 100%;
-      }
+          span {
+            &.arrow {
+              width: 29px;
+              display: block;
+              height: 15px;
 
-      button {
-        background-color: hsl(0, 0%, 100%);
-        border-color: hsl(0, 0%, 80%);
-        border-radius: 4px;
-        border-style: solid;
-        border-width: 1px;
-        min-height: 38px;
-        min-width: 38px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 14px;
-      }
+              img {
+                width: 20px;
+              }
+            }
 
-      span {
-        color: white;
+            &.expanded {
+              img {
+                transform: rotate(90deg);
+              }
+            }
+          }
+
+          a {
+            text-decoration: none;
+            color: wheat;
+          }
+        }
       }
     }
   }
-}
 
+  .pagination {
+    margin: 0 auto;
+    width: fit-content;
+    margin-top: 13px;
+    text-align: center;
+
+    .selector-container {
+      display: inline-block;
+      width: 117px;
+      margin-top: 10px;
+    }
+    .selector-container > div:first-child {
+      width: 100%;
+    }
+
+    button {
+      background-color: hsl(0, 0%, 100%);
+      border-color: hsl(0, 0%, 80%);
+      border-radius: 4px;
+      border-style: solid;
+      border-width: 1px;
+      min-height: 38px;
+      min-width: 38px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    span {
+      color: white;
+    }
+  }
+}
 @include laptop {
   .container-content {
     .history-wrapper {
