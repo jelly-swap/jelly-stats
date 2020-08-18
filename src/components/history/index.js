@@ -13,10 +13,10 @@ import Arrow from '../../css/images/arrow.svg';
 
 import './style.scss';
 
-const selecctorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
+const selectorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
 
 export default () => {
-  const swaps = useSwaps() || [];
+  const swaps = useSwaps();
 
   const data = useMemo(() => swaps, [swaps]);
 
@@ -160,7 +160,7 @@ export default () => {
         </span>
         <div className='selector-container'>
           <Select
-            options={selecctorOptions}
+            options={selectorOptions}
             styles={selectorStyles()}
             onChange={(e) => setPageSize(e.label)}
             placeholder={`Show ${pageSize}`}
