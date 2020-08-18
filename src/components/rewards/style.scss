@@ -1,21 +1,21 @@
+@import '../../css/query.scss';
+
 .reward-wrapper {
-  width: 93%;
-  min-width: 830px;
-  margin: auto;
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  margin-top: 3%;
 
   table {
-    width: 50%;
+    width: 100%;
     border-radius: 10px;
     margin-right: 15px;
     background: #002b60;
     box-shadow: inset 20px 20px 60px #002552, inset -20px -20px 60px #00316e;
     color: white;
     padding: 13px;
+    font-size: 0.8rem;
+    margin-top: 10px;
 
     thead {
       tr {
@@ -44,10 +44,12 @@
     margin: 0 auto;
     width: fit-content;
     margin-top: 13px;
+    text-align: center;
 
     .selector-container {
       display: inline-block;
       width: 117px;
+      margin-top: 10px;
     }
     .selector-container > div:first-child {
       width: 100%;
@@ -68,6 +70,23 @@
 
     span {
       color: white;
+    }
+  }
+}
+
+@include laptop {
+  .reward-wrapper {
+    width: 93%;
+    min-width: 830px;
+    margin: auto;
+
+    display: flex;
+    justify-content: center;
+
+    table {
+      min-width: 850px;
+      width: 50%;
+      font-size: 1rem;
     }
   }
 }

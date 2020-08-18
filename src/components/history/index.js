@@ -12,13 +12,18 @@ import { selectorStyles, truncateAddress, formatDate, cutTxHash } from '../../ut
 import Arrow from '../../css/images/arrow.svg';
 
 import './style.scss';
+import { DEVICE_TYPES } from '../../constants';
 
 const selecctorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 40 }, { label: 50 }];
 
-export default () => {
+export default ({ deviceType }) => {
   const swaps = useSwaps() || [];
 
   const data = useMemo(() => swaps, [swaps]);
+
+  const isDesktop = useMemo(() => {
+    return deviceType === DEVICE_TYPES.DESKTOP;
+  }, [deviceType]);
 
   const columns = useMemo(
     () => [
@@ -92,11 +97,11 @@ export default () => {
             <>
               <th></th>
               <th>Pair</th>
-              <th>From</th>
-              <th>To</th>
+              {isDesktop ? <th>From</th> : null}
+              {isDesktop ? <th>To</th> : null}
               <th>Value</th>
               <th>Expiration</th>
-              <th>TxHash</th>
+              {isDesktop ? <th>TxHash</th> : null}
             </>
           </tr>
         </thead>
@@ -117,15 +122,17 @@ export default () => {
                 <tr {...row.getToggleRowExpandedProps()}>
                   <td>{expandedComponent}</td>
                   <td>{pair}</td>
-                  <td title={sender}>{truncateAddress(sender)}</td>
-                  <td title={sender}>{truncateAddress(receiver)}</td>
+                  {isDesktop ? <td title={sender}>{truncateAddress(sender)}</td> : null}
+                  {isDesktop ? <td title={sender}>{truncateAddress(receiver)}</td> : null}
                   <td>{`${inputAmount} ${network}`}</td>
                   <td>{date}</td>
-                  <td>
-                    <a href={EXPLORERS[network] + txHash} target='_blank' rel='noopener noreferrer'>
-                      {cutTxHash(txHash)}
-                    </a>
-                  </td>
+                  {isDesktop ? (
+                    <td>
+                      <a href={EXPLORERS[network] + txHash} target='_blank' rel='noopener noreferrer'>
+                        {cutTxHash(txHash)}
+                      </a>
+                    </td>
+                  ) : null}
                 </tr>
                 {row.isExpanded && (
                   <tr>

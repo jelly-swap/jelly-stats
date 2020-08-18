@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { FaAccessibleIcon, FaAccusoft, FaAddressBook, FaAdjust, FaAdobe } from 'react-icons/fa';
+import { FaDollarSign, FaFunnelDollar, FaDiagnoses, FaSyncAlt, FaHandHoldingUsd } from 'react-icons/fa';
 
 import './style.scss';
 import { DEVICE_TYPES } from '../../constants';
@@ -10,11 +10,11 @@ const getContent = (deviceType) => {
   const isDesktop = deviceType === DEVICE_TYPES.DESKTOP;
 
   return {
-    DASHBOARD: isDesktop ? 'Dashboard' : <FaAccessibleIcon />,
-    LIQUIDITY: isDesktop ? 'Liquidity' : <FaAccusoft />,
-    PROVIDERS: isDesktop ? 'Providers' : <FaAddressBook />,
-    HISTORY: isDesktop ? 'History' : <FaAdjust />,
-    REWARDS: isDesktop ? 'Rewards' : <FaAdobe />,
+    DASHBOARD: isDesktop ? 'Dashboard' : <FaDollarSign />,
+    LIQUIDITY: isDesktop ? 'Liquidity' : <FaFunnelDollar />,
+    PROVIDERS: isDesktop ? 'Providers' : <FaDiagnoses />,
+    HISTORY: isDesktop ? 'History' : <FaSyncAlt />,
+    REWARDS: isDesktop ? 'Rewards' : <FaHandHoldingUsd />,
   };
 };
 

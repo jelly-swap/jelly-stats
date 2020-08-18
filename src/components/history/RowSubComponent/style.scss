@@ -1,16 +1,29 @@
+@import '../../../css/query.scss';
+
 .more-info {
   div {
-    display: grid;
-    grid-template-columns: 30% 0%;
-    text-align: left;
-    margin-bottom: 7px;
+    display: flex;
+    justify-content: space-between;
 
+    line-height: 2;
     span {
       white-space: nowrap;
     }
   }
+}
 
-  div > span:first-child {
-    margin-left: 25%;
+@include laptop {
+  .more-info {
+    div {
+      display: grid;
+      grid-template-columns: 30% 70%;
+      text-align: left;
+      margin-bottom: 7px;
+      line-height: unset;
+    }
+
+    div > span:first-child {
+      margin-left: 25%;
+    }
   }
 }

@@ -61,8 +61,8 @@ const App = () => {
                       <Route path='/' exact component={Dashboard} />
                       <Route path='/liquidity' component={() => <Liquidity deviceType={deviceType} />} />
                       <Route path='/providers' component={() => <Providers deviceType={deviceType} />} />
-                      {/*<Route path='/history' component={History} />
-                      <Route path='/rewards' component={Rewards} /> */}
+                      <Route path='/history' component={() => <History deviceType={deviceType} />} />
+                      <Route path='/rewards' component={Rewards} />
                     </Switch>
                     <img src={Yellow} alt='help' style={{ right: '27%', top: '90%' }} />
                     <img src={Purple} alt='help' style={{ right: '-4%', bottom: '15%' }} />

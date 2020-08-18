@@ -4,7 +4,6 @@
 body {
   background-image: -webkit-radial-gradient(#02497c 2%, #00053c 71%);
   font-family: 'Roboto', sans-serif;
-  height: 100%;
 
   .App {
     height: 97vh;
@@ -27,7 +26,7 @@ body {
 .logo-container {
   img {
     position: absolute;
-    width: 80px;
+    width: 40px;
     z-index: 1;
 
     &:hover {
@@ -43,6 +42,8 @@ body {
     }
 
     .container-content {
+      max-height: unset;
+      height: 80%;
     }
   }
 

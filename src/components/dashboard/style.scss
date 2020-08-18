@@ -17,8 +17,8 @@
       flex-direction: column;
       padding: 1.5rem;
       text-align: center;
-      width: 200px;
-      height: 70px;
+      width: 166px;
+      height: 59px;
       align-items: center;
       margin-bottom: 15px;
       justify-content: center;
@@ -34,13 +34,13 @@
         color: #fcfcfc;
 
         &.network {
-          font-size: 32px;
+          font-size: 1rem;
           font-weight: bold;
           padding: 10px;
         }
 
         &.price {
-          font-size: 18px;
+          font-size: 0.9rem;
         }
       }
     }
@@ -64,6 +64,18 @@
     .card-container {
       .card {
         margin-right: 15px;
+        width: 200px;
+        height: 70;
+
+        span {
+          &.network {
+            font-size: 32px;
+          }
+
+          &.price {
+            font-size: 18px;
+          }
+        }
       }
     }
   }
