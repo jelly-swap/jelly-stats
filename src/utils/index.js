@@ -24,7 +24,6 @@ export const selectorStyles = () => {
     container: (provided) => ({
       ...provided,
       width: '30%',
-      marginRight: '9%',
     }),
   };
 };

@@ -60,7 +60,7 @@ const App = () => {
                     <Switch>
                       <Route path='/' exact component={Dashboard} />
                       <Route path='/liquidity' component={() => <Liquidity deviceType={deviceType} />} />
-                      <Route path='/providers' component={Providers} />
+                      <Route path='/providers' component={() => <Providers deviceType={deviceType} />} />
                       {/*<Route path='/history' component={History} />
                       <Route path='/rewards' component={Rewards} /> */}
                     </Switch>
