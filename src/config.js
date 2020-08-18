@@ -40,7 +40,7 @@ const assets = {
   },
   ONE: {
     name: 'ONE',
-    decimals: 6,
+    decimals: 18,
     explorer: 'https://etherscan.io/tx/',
   },
 };
