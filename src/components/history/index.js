@@ -7,6 +7,8 @@ import RowSubComponent from './RowSubComponent';
 import { PARSE_AMOUNT, EXPLORERS } from '../../config';
 import { useSwaps } from '../../context/history/';
 
+import { useWindowSize } from '../../hooks/useWindowSize';
+
 import { selectorStyles, truncateAddress, formatDate, cutTxHash } from '../../utils';
 
 import Arrow from '../../css/images/arrow.svg';
@@ -18,6 +20,7 @@ const selectorOptions = [{ label: 10 }, { label: 20 }, { label: 30 }, { label: 4
 
 export default () => {
   const swaps = useSwaps();
+  const { deviceType } = useWindowSize();
 
   const data = useMemo(() => swaps, [swaps]);
 
