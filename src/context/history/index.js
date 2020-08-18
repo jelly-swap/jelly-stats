@@ -43,7 +43,9 @@ function reducer(state, { type, payload }) {
 }
 
 export default function Provider({ children }) {
-  const [state, dispatch] = useReducer(reducer, {});
+  const [state, dispatch] = useReducer(reducer, {
+    swaps: [],
+  });
 
   const update = useCallback((swaps) => {
     dispatch({ type: UPDATE, payload: swaps });

@@ -38,6 +38,11 @@ const assets = {
     decimals: 6,
     explorer: 'https://etherscan.io/tx/',
   },
+  ONE: {
+    name: 'ONE',
+    decimals: 18,
+    explorer: 'https://explorer.harmony.one/#/tx/',
+  },
 };
 
 const assetsArray = Object.values(assets);
