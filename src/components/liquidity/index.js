@@ -11,7 +11,7 @@ import { toFixed } from '../../utils/math';
 
 import './style.scss';
 
-export default () => {
+export default ({ deviceType }) => {
   const prices = useAllPrices();
   const liquidity = useLiquidity();
 
@@ -23,7 +23,7 @@ export default () => {
   useEffect(() => {
     const _liquidityInUsd = {};
     let _totalLiquidity = 0;
-    ASSETS.forEach(n => {
+    ASSETS.forEach((n) => {
       if (prices && liquidity) {
         const p = prices[n];
         const l = liquidity[n] || 0;
@@ -40,7 +40,7 @@ export default () => {
   const getLabels = useCallback(() => {
     const result = [];
 
-    ASSETS.forEach(n => {
+    ASSETS.forEach((n) => {
       const p = prices[n];
       const l = liquidity[n] || 0;
 
@@ -58,7 +58,7 @@ export default () => {
     if (liquidity && prices) {
       setChartData({
         labels: getLabels(),
-        datasets: getDataset('Liquidity', Object.values(liquidityInUsd))
+        datasets: getDataset('Liquidity', Object.values(liquidityInUsd)),
       });
     }
   }, [liquidity, prices, getLabels, liquidityInUsd]);
@@ -71,14 +71,14 @@ export default () => {
         const label = data.labels[index];
 
         return label;
-      }
-    }
+      },
+    },
   };
 
   return prices ? (
     <div className='liquidity slide-in-bottom'>
       <span className='total'>Total Liquidity: ${toFixed(totalLiquidity)}</span>
-      <Chart chartData={chartData} titleText='Liquidity value (in USD)' tooltips={tooltips} />
+      <Chart chartData={chartData} titleText='Liquidity value (in USD)' tooltips={tooltips} deviceType={deviceType} />
     </div>
   ) : null;
 };

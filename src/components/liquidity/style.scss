@@ -1,9 +1,11 @@
+@import '../../css/query.scss';
+
 .container-content {
-  height: 80%;
   .liquidity {
     display: flex;
     justify-content: center;
     position: relative;
+    height: 90%;
 
     span {
       color: #fcfcfc;
@@ -20,6 +22,16 @@
       padding-top: 5rem;
       position: relative;
       width: 60vw;
+    }
+  }
+}
+
+@include laptop {
+  .container-content {
+    .liquidity {
+      .chart {
+        height: 433px;
+      }
     }
   }
 }

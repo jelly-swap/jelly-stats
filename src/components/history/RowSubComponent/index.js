@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PARSE_AMOUNT, EXPLORERS, STATUS, STATUS_TO_NAME } from '../../../config';
-import { formatDate } from '../../../utils';
+import { formatDate, cutTxHash, truncateAddress } from '../../../utils';
 
 import './style.scss';
 
@@ -29,7 +29,7 @@ export default ({ row }) => {
         <span>Transaction Hash: </span>
         <span>
           <a href={EXPLORERS[network] + transactionHash} target='_blank' rel='noopener noreferrer'>
-            {transactionHash}
+            {cutTxHash(transactionHash)}
           </a>
         </span>
       </div>
@@ -51,11 +51,11 @@ export default ({ row }) => {
       </div>
       <div>
         <span>From: </span>
-        <span>{sender}</span>
+        <span>{truncateAddress(sender)}</span>
       </div>
       <div>
         <span>To: </span>
-        <span>{outputAddress}</span>
+        <span>{truncateAddress(outputAddress)}</span>
       </div>
 
       <div>
@@ -72,7 +72,7 @@ export default ({ row }) => {
           <span>{STATUS_TO_NAME[status]}: </span>
           <span>
             <a href={EXPLORERS[network] + completenessTransactionHash} target='_blank' rel='noopener noreferrer'>
-              {completenessTransactionHash}
+              {cutTxHash(completenessTransactionHash)}
             </a>
           </span>
         </div>

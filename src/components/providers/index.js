@@ -15,7 +15,7 @@ import './styles.scss';
 
 const labels = ASSETS.map((e) => ({ label: e }));
 
-export default () => {
+export default ({ deviceType }) => {
   const providers = useProviders();
   const liquidity = useLiquidity();
   const [chartData, setChartData] = useState({});
@@ -70,7 +70,12 @@ export default () => {
           value={selectedToken}
         />
       </div>
-      <Chart chartData={chartData} tooltips={tooltips} titleText='Liquidity Providers By Asset' />
+      <Chart
+        chartData={chartData}
+        tooltips={tooltips}
+        titleText='Liquidity Providers By Asset'
+        deviceType={deviceType}
+      />
     </div>
   );
 };

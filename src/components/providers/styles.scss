@@ -1,8 +1,8 @@
-.container-content {
-  height: 80%;
+@import '../../css/query.scss';
 
+.container-content {
   .providers {
-    width: 50%;
+    width: 100%;
     margin: auto;
     margin-top: 3%;
 
@@ -13,6 +13,7 @@
       align-items: center;
       justify-content: space-between;
       margin: auto;
+      margin-top: 3rem;
 
       span {
         color: #fcfcfc;
@@ -21,7 +22,6 @@
       .total {
         font-size: 20px;
         font-weight: bold;
-        margin-right: 9%;
       }
     }
 
@@ -29,14 +29,29 @@
       display: flex;
       margin: 0 auto;
       margin-top: 5rem;
-
+      height: 250px;
+      max-height: 250px;
       position: relative;
       width: 90%;
+      overflow-y: hidden;
     }
 
     @media (max-width: 1400px) {
       .total {
         top: 70px;
+      }
+    }
+  }
+}
+
+@include laptop {
+  .container-content {
+    .providers {
+      width: 50%;
+
+      .chart {
+        height: 325px;
+        max-height: 325px;
       }
     }
   }

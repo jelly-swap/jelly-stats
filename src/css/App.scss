@@ -1,17 +1,56 @@
 @import 'animations.scss';
+@import 'query.scss';
 
 body {
   background-image: -webkit-radial-gradient(#02497c 2%, #00053c 71%);
   font-family: 'Roboto', sans-serif;
 
   .App {
-    height: 98vh;
+    height: 97vh;
   }
 
   .container-content {
+    height: 90%;
+    max-height: 562px;
+    overflow-y: auto;
+    position: relative;
+    top: 2em;
+
     img {
       width: 10%;
       position: fixed;
+    }
+  }
+}
+
+.logo-container {
+  img {
+    position: absolute;
+    width: 40px;
+    z-index: 1;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@include laptop {
+  body {
+    .App {
+      height: 98vh;
+    }
+
+    .container-content {
+      max-height: unset;
+      height: 80%;
+    }
+  }
+
+  .logo-container {
+    img {
+      top: 37px;
+      left: 60px;
     }
   }
 }
