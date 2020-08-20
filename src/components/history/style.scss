@@ -100,14 +100,18 @@
       width: 93%;
       min-width: 830px;
       margin: auto;
-
       display: flex;
       justify-content: center;
+      height: 85%;
 
       table {
         min-width: 850px;
         width: 65%;
         font-size: 1rem;
+      }
+
+      .pagination {
+        margin-bottom: 5%;
       }
     }
   }
