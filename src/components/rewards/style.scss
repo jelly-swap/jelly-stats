@@ -85,11 +85,16 @@
 
     display: flex;
     justify-content: center;
+    height: 85%;
 
     table {
       min-width: 850px;
       width: 50%;
       font-size: 1rem;
+    }
+
+    .pagination {
+      margin-bottom: 5%;
     }
   }
 }
