@@ -23,6 +23,11 @@ const assets = {
     explorer: 'https://explorer.aepps.com/transactions/',
     timestampMs: true, // if timestamp is in milliseconds
   },
+  CAPT: {
+    name: 'CAPT',
+    decimals: 18,
+    explorer: 'https://etherscan.io/tx/',
+  },
   WBTC: {
     name: 'WBTC',
     decimals: 8,
