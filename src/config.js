@@ -48,6 +48,11 @@ const assets = {
     decimals: 18,
     explorer: 'https://explorer.harmony.one/#/tx/',
   },
+  MATIC: {
+    name: 'MATIC',
+    decimals: 18,
+    explorer: 'https://explorer.matic.network/tx/',
+  },
 };
 
 const assetsArray = Object.values(assets);
